@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_CTYPE, "Polish");
+	int drzwi; //zmienna operujaca switchem
+	cout << "----------RETURN-Powrót do domu----------" << endl<<endl;
+	cout << "W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon."<<endl;
+	cout << "W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan."<<endl;
+	cout << "Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy."<<endl;
+	cout << "Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,";
+	cout << " aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury."<<endl;
+	cout << " Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt."<<endl;
+	cout << "Wybierz historię którą chcesz poznać: ";
+	cin >> drzwi;
+	switch (drzwi)
+	{
+		case 1:
+			cout << "0";
+			cout << "Historia 1";
+			break;
+		case 2:
+			cout << "Historia 2";
+			break;
+		case 3:
+			cout << "Historia 3";
+			break;
+		case 4: 
+			cout << "Historia 4";
+			break;
+	}
+		
+}
