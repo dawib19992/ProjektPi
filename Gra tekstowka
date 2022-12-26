@@ -1,34 +1,77 @@
 #include <iostream>
+#include <Windows.h>
+#include <iomanip>
+#include <conio.h>
+#include <string>
 
 using namespace std;
 
+void writing(string tekst)
+{
+
+    for (char c : tekst)
+    {
+        cout << c;
+        Sleep(0);
+    }
+}
+
+void pak() //press any key to continue..
+{
+    cout << "Naciśnij dowolny klawisz aby kontynuować...";
+    cin.get();
+}
+
 int main()
 {
-	setlocale(LC_CTYPE, "Polish");
-	int drzwi; //zmienna operujaca switchem
-	cout << "----------RETURN-Powrót do domu----------" << endl<<endl;
-	cout << "W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon."<<endl;
-	cout << "W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan."<<endl;
-	cout << "Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy."<<endl;
-	cout << "Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,";
-	cout << " aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury."<<endl;
-	cout << " Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt."<<endl;
-	cout << "Wybierz historię którą chcesz poznać: ";
-	cin >> drzwi;
-	switch (drzwi)
-	{
-		case 1:
-			cout << "Historia 1";
-			break;
-		case 2:
-			cout << "Historia 2";
-			break;
-		case 3:
-			cout << "Historia 3";
-			break;
-		case 4: 
-			cout << "Historia 4";
-			break;
-	}
-		
+    setlocale(LC_ALL, "PL-pl");
+    int doors; //zmienna operująca switchem
+    cout << "----------RETURN-Powrót do domu----------" << endl << endl;
+    system("cls");
+    writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
+    writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
+    writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
+    writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
+    writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
+    writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
+    cout << endl;
+    pak();
+    system("cls");//czyszczenie obszaru konsoli
+    cout << endl;
+    cout << "Wybierz historię którą chcesz poznać: "<<endl;
+    cout << "  +------+   +------+   +------+" << endl;
+    cout << "  | 1    |   | 2    |   | 3    |" << endl;
+    cout << "  |      |   |      |   |      |" << endl;
+    cout << "  |    o |   |    o |   |    o |" << endl;
+    cout << "  |      |   |      |   |      |" << endl;
+    cout << "  |      |   |      |   |      |" << endl;
+    cout << "  +------+   +------+   +------+" << endl;
+    cout << "Wybierz numer drzwi do których chcesz wejść: ";
+    cin >> doors;
+    system("cls");
+    switch(doors)
+    {
+        case 1:
+        {
+            cout << "Historia 1: ";
+            break;
+        }
+        case 2: 
+        {
+            cout << "Historia 2: ";
+            break;
+        }
+        case 3:
+        {
+            cout << "Historia 3: ";
+            break;
+        }
+        default:
+        {
+            cout << "Nie wybrałeś drzwi gra się kończy..";
+                break;
+        }
+
+    }
+
 }
