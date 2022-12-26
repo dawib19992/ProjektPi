@@ -12,7 +12,7 @@ void writing(string tekst)
     for (char c : tekst)
     {
         cout << c;
-        Sleep(0);
+        Sleep(50);
     }
 }
 
