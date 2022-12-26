@@ -3,29 +3,42 @@
 #include <iomanip>
 #include <conio.h>
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
-void writing(string tekst)
+struct Charakter
+{
+    string name;
+    int strenght;
+    int intelligence;
+    int agility;
+    int hp;
+};
+
+void writing(string text)
 {
 
-    for (char c : tekst)
+    for (char c : text)
     {
         cout << c;
         Sleep(35);
     }
 }
 
-void pak() //press any key to continue..
-{
-    cout << "Naciśnij dowolny klawisz aby kontynuować...";
+void pak() //czekanie na reakcje użytkownika
+{ 
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
+    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
+    cout << "Naciśnij Enter aby kontynuować...";
     cin.get();
+    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
 int main()
 {
     setlocale(LC_ALL, "PL-pl");
-    int doors; //zmienna operująca switchem
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     cout << "----------RETURN-Powrót do domu----------" << endl << endl;
     system("cls");
     writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
@@ -36,9 +49,15 @@ int main()
     writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
     cout << endl;
     pak();
+    writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
+    writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
+    writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
+    cout << endl;
+    pak();
     system("cls");//czyszczenie obszaru konsoli
     cout << endl;
-    cout << "Wybierz historię którą chcesz poznać: "<<endl;
+    cout << "Wybierz historię którą chcesz poznać: " << endl;
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN );
     cout << "  +------+   +------+   +------+" << endl;
     cout << "  | 1    |   | 2    |   | 3    |" << endl;
     cout << "  |      |   |      |   |      |" << endl;
@@ -46,31 +65,36 @@ int main()
     cout << "  |      |   |      |   |      |" << endl;
     cout << "  |      |   |      |   |      |" << endl;
     cout << "  +------+   +------+   +------+" << endl;
-    cout << "Wybierz numer drzwi do których chcesz wejść: ";
+    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    int doors;
+    cout << "Wybierz drzwi do których chcesz wejść i zatwierdź wybór enterem: ";
     cin >> doors;
     system("cls");
-    switch(doors)
+    switch (doors)
     {
-        case 1:
-        {
-            cout << "Historia 1: ";
-            break;
-        }
-        case 2: 
-        {
-            cout << "Historia 2: ";
-            break;
-        }
-        case 3:
-        {
-            cout << "Historia 3: ";
-            break;
-        }
-        default:
-        {
-            cout << "Nie wybrałeś drzwi gra się kończy..";
-                break;
-        }
+    case 1:
+    {
+        cout << "Historia 1: ";
+        Charakter hero { "Kyral",9,5,4,150 };
+        cout << hero.name;
+
+        break;
+    }
+    case 2:
+    {
+        cout << "Historia 2: ";
+        break;
+    }
+    case 3:
+    {
+        cout << "Historia 3: ";
+        break;
+    }
+    default:
+    {
+        cout << "Nie wybrałeś drzwi gra się kończy..";
+        break;
+    }
 
     }
 
