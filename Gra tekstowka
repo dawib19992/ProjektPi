@@ -6,15 +6,127 @@
 #include <cstdio>
 
 using namespace std;
+bool gameover;
 
-struct Charakter
+const int height = 12;
+const int width = 14;
+
+int x, y, fruitX, fruitY, score;
+
+int tailX[100], tailY[100], ntail;
+
+enum edirection { STOP = 0, UP, DOWN, LEFT, RIGHT };
+edirection dir;
+
+void setup()
 {
-    string name;
-    int strenght;
-    int intelligence;
-    int agility;
-    int hp;
-};
+	gameover = false;
+	dir = STOP;
+	x = width / 2;
+	y = height / 2;
+	fruitX = rand() % width-1;
+	fruitY = rand() % height-1;
+}
+void draw()
+{
+	system("cls");
+
+	for (int i = 0; i < width; i++)
+	{
+		cout << "#";
+	}
+	cout << endl;
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			if (j == 0 || j == width - 1)
+				cout << "#";
+			else if (i == y && j == x)
+				cout << "o";
+			else if (i == fruitY && j == fruitX)
+				cout << "*";
+			else
+			{
+				cout << " ";
+			}
+
+		}
+
+		cout << endl;
+	}
+
+	for (int i = 0; i < width; i++)
+	{
+		cout << "#";
+	}
+	cout << endl << endl;
+	cout << " score: " << score<<endl<<endl;
+}
+void input()
+{
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case 'w':
+			dir = UP;
+			break;
+		case 's':
+			dir = DOWN;
+			break;
+		case 'a':
+			dir = LEFT;
+			break;
+		case 'd':
+			dir = RIGHT;
+			break;
+		default:
+			break;
+		}
+	}
+}
+void logic()
+{
+
+	switch (dir)
+	{
+	case UP:
+		y--;
+		break;
+	case DOWN:
+		y++;
+		break;
+	case LEFT:
+		x--;
+		break;
+	case RIGHT:
+		x++;
+		break;
+	default:
+		break;
+	}
+
+	if (x<0 || x>width || y<0 || y>height)
+	{
+		score-=10;
+		x = width/2;
+		y = height/2;
+		fruitX = rand() % width-1;
+		fruitY = rand() % height-1;
+	}
+	
+	if (x == fruitX && y == fruitY)
+	{
+		score += 10;
+		fruitX = rand() % width-1;
+		fruitY = rand() % height-1;
+	}
+	if (score == 20)
+		gameover = true;
+}
+
 
 void writing(string text)
 {
@@ -22,12 +134,12 @@ void writing(string text)
     for (char c : text)
     {
         cout << c;
-        Sleep(35);
+        Sleep(0);
     }
 }
 
 void pak() //czekanie na reakcje użytkownika
-{ 
+{
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
     cout << "Naciśnij Enter aby kontynuować...";
@@ -57,7 +169,7 @@ int main()
     system("cls");//czyszczenie obszaru konsoli
     cout << endl;
     cout << "Wybierz historię którą chcesz poznać: " << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN );
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
     cout << "  +------+   +------+   +------+" << endl;
     cout << "  | 1    |   | 2    |   | 3    |" << endl;
     cout << "  |      |   |      |   |      |" << endl;
@@ -74,10 +186,17 @@ int main()
     {
     case 1:
     {
-        cout << "Historia 1: ";
-        Charakter hero { "Kyral",9,5,4,150 };
-        cout << hero.name;
-
+		setup();
+		while (!gameover)
+		{
+			draw();
+			input();
+			logic();
+			Sleep(25);
+		}
+		system("cls");
+		cout << "Historia 1: " << endl;
+		writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
         break;
     }
     case 2:
