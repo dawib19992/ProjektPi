@@ -134,7 +134,7 @@ void writing(string text)
     for (char c : text)
     {
         cout << c;
-        Sleep(0);
+        Sleep(35);
     }
 }
 
@@ -143,7 +143,8 @@ void pak() //czekanie na reakcje użytkownika
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
     cout << "Naciśnij Enter aby kontynuować...";
-    cin.get();
+    _getch();
+    cout<<endl;
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
