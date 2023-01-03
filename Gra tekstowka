@@ -10,6 +10,8 @@ bool gameover;
 
 const int height = 20;
 const int width = 20;
+int continuesnake=0;
+int snakelvl = 0;
 
 int x, y, fruitX, fruitY, score;
 
@@ -28,10 +30,14 @@ void setup()
 	fruitX = rand() % width;
 	fruitY = rand() % height;
 }
-void draw()
+void draw(int points)
 {
 	system("cls");
 
+	cout << "PUNKTY DO ZDOBYCIA: " << points << endl;
+	cout << endl;
+	cout << "AKTUALNY WYNIK: " << score << endl;
+	cout << endl;
 	for (int i = 0; i < width; i++)
 	{
 		cout << "#";
@@ -75,7 +81,7 @@ void draw()
 		cout << "#";
 	}
 	cout << endl << endl;
-	cout << " score: " << score<<endl<<endl;
+	
 }
 void input()
 {
@@ -153,7 +159,14 @@ void logic(int points)
 		fruitY = rand() % height;
 	}
 	if (score == points)
+	{
 		gameover = true;
+		snakelvl++;
+		score = 0;
+		ntail = 0;
+	}
+		
+
 }
 
 
@@ -216,14 +229,70 @@ int main()
     {
     case 1:
     {
-		setup();
-		while (!gameover)
+		writing("Mapa którą otrzymałeś pokazuje abyś kierował się na północ w strone Mostu Zagłady,\nniestety to jedyna drogą i musisz pokonać pilnującego mostu ogra o imieniu Norbert, odwieczny rywal Greków,\nktóry za swoje zbrodnie został zesłany na nasz świat.\nAby odkupić swoje winy strzeże mostu i ci którzy z nim przegrają wracają razem z nim do krainy Orków");
+		cout << endl;
+		pak();
+		system("cls");
+		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
+		cout << endl;
+		pak();
+		do 
 		{
-			draw();
-			input();
-			logic(40);
-			Sleep(15);
-		}
+			if (snakelvl == 0)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(70);
+					input();
+					logic(70);
+					Sleep(70);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+		
+			else if (snakelvl == 1)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(120);
+					input();
+					logic(120);
+					Sleep(40);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+			else if (snakelvl == 2)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(200);
+					input();
+					logic(200);
+					Sleep(30);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+			
+		} while (continuesnake != 3);
+
+		writing("Możesz se przejść przez most");
+		
+				
 		system("cls");
 		cout << "Historia 1: " << endl;
 		cout << endl;
