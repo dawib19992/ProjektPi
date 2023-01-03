@@ -8,8 +8,8 @@
 using namespace std;
 bool gameover;
 
-const int height = 12;
-const int width = 14;
+const int height = 20;
+const int width = 20;
 
 int x, y, fruitX, fruitY, score;
 
@@ -20,12 +20,13 @@ edirection dir;
 
 void setup()
 {
+	srand(time(NULL));
 	gameover = false;
 	dir = STOP;
 	x = width / 2;
 	y = height / 2;
-	fruitX = rand() % width-1;
-	fruitY = rand() % height-1;
+	fruitX = rand() % width;
+	fruitY = rand() % height;
 }
 void draw()
 {
@@ -41,7 +42,7 @@ void draw()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (j == 0 || j == width - 1)
+			if (j == 0 || j == width-1)
 				cout << "#";
 			else if (i == y && j == x)
 				cout << "o";
@@ -49,7 +50,19 @@ void draw()
 				cout << "*";
 			else
 			{
-				cout << " ";
+				bool print = false;
+				for (int k = 0; k < ntail; k++)
+				{
+					if (tailX[k] == j && tailY[k] == i)
+					{
+						cout << "+";
+						print = true;
+					}
+					
+				}
+				if (!print)
+					cout << " ";
+				
 			}
 
 		}
@@ -87,8 +100,22 @@ void input()
 		}
 	}
 }
-void logic()
+void logic(int points)
 {
+	int prevX = tailX[0];
+	int prevY = tailY[0];
+	int prev2x, prev2y;
+	tailX[0] = x;
+	tailY[0] = y;
+	for (int i = 1; i < ntail; i++)
+	{
+		prev2x = tailX[i];
+		prev2y = tailY[i];
+		tailX[i] = prevX;
+		tailY[i] = prevY;
+		prevX = prev2x;
+		prevY = prev2y;
+	}
 
 	switch (dir)
 	{
@@ -110,20 +137,22 @@ void logic()
 
 	if (x<0 || x>width || y<0 || y>height)
 	{
+		ntail--;
 		score-=10;
 		x = width/2;
 		y = height/2;
-		fruitX = rand() % width-1;
-		fruitY = rand() % height-1;
+		fruitX = rand() % width;
+		fruitY = rand() % height;
 	}
 	
 	if (x == fruitX && y == fruitY)
 	{
+		ntail++;
 		score += 10;
-		fruitX = rand() % width-1;
-		fruitY = rand() % height-1;
+		fruitX = rand() % width;
+		fruitY = rand() % height;
 	}
-	if (score == 20)
+	if (score == points)
 		gameover = true;
 }
 
@@ -134,7 +163,7 @@ void writing(string text)
     for (char c : text)
     {
         cout << c;
-        Sleep(35);
+        Sleep(0);
     }
 }
 
@@ -143,8 +172,8 @@ void pak() //czekanie na reakcje użytkownika
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
     cout << "Naciśnij Enter aby kontynuować...";
-    _getch();
-    cout<<endl;
+	_getch();
+	cout << endl;
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
@@ -192,13 +221,14 @@ int main()
 		{
 			draw();
 			input();
-			logic();
-			Sleep(25);
+			logic(40);
+			Sleep(15);
 		}
 		system("cls");
 		cout << "Historia 1: " << endl;
-		writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
-        break;
+		cout << endl;
+		pak();
+		break;
     }
     case 2:
     {
