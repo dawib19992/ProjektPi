@@ -8,8 +8,10 @@
 using namespace std;
 bool gameover;
 
-const int height = 12;
-const int width = 14;
+const int height = 20;
+const int width = 20;
+int continuesnake=0;
+int snakelvl = 0;
 
 int x, y, fruitX, fruitY, score;
 
@@ -20,17 +22,22 @@ edirection dir;
 
 void setup()
 {
+	srand(time(NULL));
 	gameover = false;
 	dir = STOP;
 	x = width / 2;
 	y = height / 2;
-	fruitX = rand() % width-1;
-	fruitY = rand() % height-1;
+	fruitX = rand() % width;
+	fruitY = rand() % height;
 }
-void draw()
+void draw(int points)
 {
 	system("cls");
 
+	cout << "PUNKTY DO ZDOBYCIA: " << points << endl;
+	cout << endl;
+	cout << "AKTUALNY WYNIK: " << score << endl;
+	cout << endl;
 	for (int i = 0; i < width; i++)
 	{
 		cout << "#";
@@ -41,7 +48,7 @@ void draw()
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (j == 0 || j == width - 1)
+			if (j == 0 || j == width-1)
 				cout << "#";
 			else if (i == y && j == x)
 				cout << "o";
@@ -49,7 +56,19 @@ void draw()
 				cout << "*";
 			else
 			{
-				cout << " ";
+				bool print = false;
+				for (int k = 0; k < ntail; k++)
+				{
+					if (tailX[k] == j && tailY[k] == i)
+					{
+						cout << "+";
+						print = true;
+					}
+					
+				}
+				if (!print)
+					cout << " ";
+				
 			}
 
 		}
@@ -62,7 +81,7 @@ void draw()
 		cout << "#";
 	}
 	cout << endl << endl;
-	cout << " score: " << score<<endl<<endl;
+	
 }
 void input()
 {
@@ -87,8 +106,22 @@ void input()
 		}
 	}
 }
-void logic()
+void logic(int points)
 {
+	int prevX = tailX[0];
+	int prevY = tailY[0];
+	int prev2x, prev2y;
+	tailX[0] = x;
+	tailY[0] = y;
+	for (int i = 1; i < ntail; i++)
+	{
+		prev2x = tailX[i];
+		prev2y = tailY[i];
+		tailX[i] = prevX;
+		tailY[i] = prevY;
+		prevX = prev2x;
+		prevY = prev2y;
+	}
 
 	switch (dir)
 	{
@@ -110,21 +143,30 @@ void logic()
 
 	if (x<0 || x>width || y<0 || y>height)
 	{
+		ntail--;
 		score-=10;
 		x = width/2;
 		y = height/2;
-		fruitX = rand() % width-1;
-		fruitY = rand() % height-1;
+		fruitX = rand() % width;
+		fruitY = rand() % height;
 	}
 	
 	if (x == fruitX && y == fruitY)
 	{
+		ntail++;
 		score += 10;
-		fruitX = rand() % width-1;
-		fruitY = rand() % height-1;
+		fruitX = rand() % width;
+		fruitY = rand() % height;
 	}
-	if (score == 20)
+	if (score == points)
+	{
 		gameover = true;
+		snakelvl++;
+		score = 0;
+		ntail = 0;
+	}
+		
+
 }
 
 
@@ -134,7 +176,7 @@ void writing(string text)
     for (char c : text)
     {
         cout << c;
-        Sleep(35);
+        Sleep(0);
     }
 }
 
@@ -143,8 +185,8 @@ void pak() //czekanie na reakcje użytkownika
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
     cout << "Naciśnij Enter aby kontynuować...";
-    _getch();
-    cout<<endl;
+	_getch();
+	cout << endl;
     SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
@@ -187,18 +229,75 @@ int main()
     {
     case 1:
     {
-		setup();
-		while (!gameover)
+		writing("Mapa którą otrzymałeś pokazuje abyś kierował się na północ w strone Mostu Zagłady,\nniestety to jedyna drogą i musisz pokonać pilnującego mostu ogra o imieniu Norbert, odwieczny rywal Greków,\nktóry za swoje zbrodnie został zesłany na nasz świat.\nAby odkupić swoje winy strzeże mostu i ci którzy z nim przegrają wracają razem z nim do krainy Orków");
+		cout << endl;
+		pak();
+		system("cls");
+		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
+		cout << endl;
+		pak();
+		do 
 		{
-			draw();
-			input();
-			logic();
-			Sleep(25);
-		}
+			if (snakelvl == 0)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(70);
+					input();
+					logic(70);
+					Sleep(70);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+		
+			else if (snakelvl == 1)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(120);
+					input();
+					logic(120);
+					Sleep(40);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+			else if (snakelvl == 2)
+			{
+				setup();
+				while (!gameover)
+				{
+					draw(200);
+					input();
+					logic(200);
+					Sleep(30);
+				}
+				system("cls");
+				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
+				Sleep(5000);
+				cout << endl;
+				pak();
+			}
+			
+		} while (continuesnake != 3);
+
+		writing("Możesz se przejść przez most");
+		
+				
 		system("cls");
 		cout << "Historia 1: " << endl;
-		writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
-        break;
+		cout << endl;
+		pak();
+		break;
     }
     case 2:
     {
