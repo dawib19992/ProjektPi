@@ -292,13 +292,8 @@ int main()
 		} while (continuesnake != 3);
 
 		writing("Możesz se przejść przez most");
-		
-				
-		system("cls");
-		cout << "Historia 1: " << endl;
-		cout << endl;
-		pak();
-		break;
+		TTT();
+		//essa
     }
     case 2:
     {
