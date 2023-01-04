@@ -431,6 +431,7 @@ int main()
 		} while (continuesnake != 3);
 
 		writing("Możesz se przejść przez most");
+		TTT();
 	}
 	case 2:
 	{
