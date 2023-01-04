@@ -155,6 +155,7 @@ void logic(int points)
 	{
 		ntail++;
 		score += 10;
+		Beep(150,280);
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 	}
