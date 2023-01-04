@@ -4,13 +4,15 @@
 #include <conio.h>
 #include <string>
 #include <cstdio>
+#include <ctime>
+#include <random>
 
 using namespace std;
 bool gameover;
 
 const int height = 20;
 const int width = 20;
-int continuesnake=0;
+int continuesnake = 0;
 int snakelvl = 0;
 
 int x, y, fruitX, fruitY, score;
@@ -48,7 +50,7 @@ void draw(int points)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (j == 0 || j == width-1)
+			if (j == 0 || j == width - 1)
 				cout << "#";
 			else if (i == y && j == x)
 				cout << "o";
@@ -64,11 +66,11 @@ void draw(int points)
 						cout << "+";
 						print = true;
 					}
-					
+
 				}
 				if (!print)
 					cout << " ";
-				
+
 			}
 
 		}
@@ -81,7 +83,7 @@ void draw(int points)
 		cout << "#";
 	}
 	cout << endl << endl;
-	
+
 }
 void input()
 {
@@ -144,18 +146,18 @@ void logic(int points)
 	if (x<0 || x>width || y<0 || y>height)
 	{
 		ntail--;
-		score-=10;
-		x = width/2;
-		y = height/2;
+		score -= 10;
+		x = width / 2;
+		y = height / 2;
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 	}
-	
+
 	if (x == fruitX && y == fruitY)
 	{
 		ntail++;
 		score += 10;
-		Beep(150,280);
+		Beep(150, 280);
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 	}
@@ -166,70 +168,207 @@ void logic(int points)
 		score = 0;
 		ntail = 0;
 	}
-		
+
 
 }
 
+char board_TTT[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+void show_board_TTT();
+void get_TTT_player_chocie();
+void get_TTT_computer_choice();
+int count_boardTTT(char symbolTTC);
+char check_winnerTTT();
+void copmuter_vs_player();
+
+int TTT()
+{
+	copmuter_vs_player();
+	return 0;
+}
+
+void get_TTT_computer_choice()
+{
+	srand(time(0));
+	int choice;
+	do {
+		choice = rand() % 10;
+	} while (board_TTT[choice] != ' ');
+	board_TTT[choice] = 'O';
+}
+void get_TTT_player_chocie()
+{
+	while (true)
+	{
+		cout << "Wybierz pole które chcesz zaznaczyć. (1 - 9): ";
+		int choice_TTT;
+		cin >> choice_TTT;
+		choice_TTT--;
+		if (choice_TTT < 0 || choice_TTT>8)
+		{
+			cout << "Wybierz pole które chcesz zaznaczyć. (1 -9): ";
+		}
+		else if (board_TTT[choice_TTT] != ' ')
+		{
+			cout << "Wybierz wolne miejsce na planszy:  ";
+
+		}
+		else
+		{
+			board_TTT[choice_TTT] = 'X';
+			break;
+		}
+	}
+}
+void copmuter_vs_player()
+{
+	while (true)
+	{
+		system("cls");
+		show_board_TTT();
+		if (count_boardTTT('X') == count_boardTTT('O'))
+		{
+			cout << "Kolej Kyrala " << endl;
+			get_TTT_player_chocie();
+		}
+		else
+		{
+			get_TTT_computer_choice();
+		}
+		char winner = check_winnerTTT();
+		if (winner == 'X')
+		{
+			system("cls");
+			show_board_TTT();
+			cout << "Kyral wygrywa. " << endl;
+			break;
+		}
+		else if (winner == 'O')
+		{
+			system("cls");
+			show_board_TTT();
+			cout << "Kyral przegrywa. " << endl;
+			break;
+		}
+		else if (winner == 'D')
+		{
+			cout << "Remis" << endl;
+			break;
+		}
+	}
+}
+
+int count_boardTTT(char symbol)
+{
+	int total_TTT = 0;
+	for (int i = 0; i < 9; i++)
+	{
+		if (board_TTT[i] == symbol)
+			total_TTT += 1;
+	}
+	return total_TTT;
+}
+char check_winnerTTT()
+{
+	// row
+	if (board_TTT[0] == board_TTT[1] && board_TTT[1] == board_TTT[2] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[3] == board_TTT[4] && board_TTT[4] == board_TTT[5] && board_TTT[3] != ' ')
+		return board_TTT[3];
+	if (board_TTT[6] == board_TTT[7] && board_TTT[7] == board_TTT[8] && board_TTT[6] != ' ')
+		return board_TTT[6];
+	//coulmn
+	if (board_TTT[0] == board_TTT[3] && board_TTT[3] == board_TTT[6] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[1] == board_TTT[4] && board_TTT[4] == board_TTT[7] && board_TTT[1] != ' ')
+		return board_TTT[1];
+	if (board_TTT[2] == board_TTT[5] && board_TTT[5] == board_TTT[8] && board_TTT[2] != ' ')
+		return board_TTT[2];
+	//diagonal
+	if (board_TTT[0] == board_TTT[4] && board_TTT[4] == board_TTT[8] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[2] == board_TTT[4] && board_TTT[4] == board_TTT[6] && board_TTT[2] != ' ')
+		return board_TTT[2];
+	//draw
+	if (count_boardTTT('X') + count_boardTTT('0') < 9)
+		return 'C';
+	else
+		return 'D';
+}
+
+void show_board_TTT()
+{
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[0] << "   |   " << board_TTT[1] << "   |   " << board_TTT[2] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "----------------------" << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[3] << "   |   " << board_TTT[4] << "   |   " << board_TTT[5] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "----------------------" << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[6] << "   |   " << board_TTT[7] << "   |   " << board_TTT[8] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+}
 
 void writing(string text)
 {
 
-    for (char c : text)
-    {
-        cout << c;
-        Sleep(0);
-    }
+	for (char c : text)
+	{
+		cout << c;
+		Sleep(0);
+	}
 }
 
 void pak() //czekanie na reakcje użytkownika
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
-    cout << "Naciśnij Enter aby kontynuować...";
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
+	cout << "Naciśnij Enter aby kontynuować...";
 	_getch();
 	cout << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
 int main()
 {
-    setlocale(LC_ALL, "PL-pl");
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    cout << "----------RETURN-Powrót do domu----------" << endl << endl;
-    system("cls");
-    writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
-    writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
-    writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
-    writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
-    writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
-    writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
-    cout << endl;
-    pak();
-    writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
-    writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
-    writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
-    cout << endl;
-    pak();
-    system("cls");//czyszczenie obszaru konsoli
-    cout << endl;
-    cout << "Wybierz historię którą chcesz poznać: " << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-    cout << "  +------+   +------+   +------+" << endl;
-    cout << "  | 1    |   | 2    |   | 3    |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  |    o |   |    o |   |    o |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  +------+   +------+   +------+" << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-    int doors;
-    cout << "Wybierz drzwi do których chcesz wejść i zatwierdź wybór enterem: ";
-    cin >> doors;
-    system("cls");
-    switch (doors)
-    {
-    case 1:
-    {
+	setlocale(LC_ALL, "PL-pl");
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
+	system("cls");
+	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
+	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
+	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
+	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
+	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
+	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
+	cout << endl;
+	pak();
+	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
+	writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
+	writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
+	cout << endl;
+	pak();
+	system("cls");//czyszczenie obszaru konsoli
+	cout << endl;
+	cout << "Wybierz historię którą chcesz poznać: " << endl;
+	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+	cout << "  +------+   +------+   +------+" << endl;
+	cout << "  | 1    |   | 2    |   | 3    |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  |    o |   |    o |   |    o |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  +------+   +------+   +------+" << endl;
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	int doors;
+	cout << "Wybierz drzwi do których chcesz wejść i zatwierdź wybór enterem: ";
+	cin >> doors;
+	system("cls");
+	switch (doors)
+	{
+	case 1:
+	{
 		writing("Mapa którą otrzymałeś pokazuje abyś kierował się na północ w strone Mostu Zagłady,\nniestety to jedyna drogą i musisz pokonać pilnującego mostu ogra o imieniu Norbert, odwieczny rywal Greków,\nktóry za swoje zbrodnie został zesłany na nasz świat.\nAby odkupić swoje winy strzeże mostu i ci którzy z nim przegrają wracają razem z nim do krainy Orków");
 		cout << endl;
 		pak();
@@ -237,7 +376,7 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-		do 
+		do
 		{
 			if (snakelvl == 0)
 			{
@@ -255,7 +394,7 @@ int main()
 				cout << endl;
 				pak();
 			}
-		
+
 			else if (snakelvl == 1)
 			{
 				setup();
@@ -288,34 +427,34 @@ int main()
 				cout << endl;
 				pak();
 			}
-			
+
 		} while (continuesnake != 3);
 
 		writing("Możesz se przejść przez most");
-		
-				
+
+
 		system("cls");
 		cout << "Historia 1: " << endl;
 		cout << endl;
 		pak();
 		break;
-    }
-    case 2:
-    {
-        cout << "Historia 2: ";
-        break;
-    }
-    case 3:
-    {
-        cout << "Historia 3: ";
-        break;
-    }
-    default:
-    {
-        cout << "Nie wybrałeś drzwi gra się kończy..";
-        break;
-    }
+	}
+	case 2:
+	{
+		cout << "Historia 2: ";
+		break;
+	}
+	case 3:
+	{
+		cout << "Historia 3: ";
+		break;
+	}
+	default:
+	{
+		cout << "Nie wybrałeś drzwi gra się kończy..";
+		break;
+	}
 
-    }
+	}
 
 }
