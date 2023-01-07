@@ -664,6 +664,9 @@ int main()
 		system("cls");
 cout<<"Więc tak też postanowili zrobić, znaleźli potrzebne materiały i narzędzia i zaczęli budować maszynę latającą, co prawda Kyral miał wątpliwości czy na pewno o to chodziło, ale demokratycznie zadecydowali że to dobry pomysł zatem zbudowali i polecieli "<<endl;
 		cout<<"Kyral i jego kompania lecieli swoją maszyną latającą w stronę tajemniczej krainy, gdzie według legend miał znajdować się Kamień Natury. Podczas lotu zauważyli dziwną chmurę, która szybko się zbliżała. Błyskawicznie zostali wciągnięci w głąb mrocznej struktury, gdzie spotkali się z tajemniczymi istotami porozumiewającymi się bez słowa. Nieznane istoty szybko zaopiekowały się i pomogły naszym bohaterom aż do samego końca gdzie pokazali im portal, którym rzekomo można w każdy zakątek krainy.  ";
+		system("cls");
+		cout<<"Okazało się ,że nasza drużyna wpadła prosto w zasadzke Viltresa i nie pozostaje im nic innego jak walczyć o wszystko albo zostać z niczym umierając śmiercią wojownika lub będąc skazanym na wieczną hańbę"<<ednl<< "By wygrać z Viltresem muisz pokonać go w jego ulubionej grze";
+		
 		break;
 	}
 	case 3:
