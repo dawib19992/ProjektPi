@@ -352,15 +352,15 @@ void guards_game(int number, int skill)
 		}
 		fighting();
 
-		if (playerSkill < guardSkill) 
+		if (playerSkill < guardSkill)
 		{
 			playerAlive = false;
 			cout << "Kyral zginął..." << endl;
 		}
 
-		else 
+		else
 		{
-		
+
 
 			if (playerSkill - guardSkill > 0)
 			{
@@ -389,7 +389,7 @@ void guards_game(int number, int skill)
 	else
 	{
 		cout << "Kyral nie żyje..." << endl;
-		
+
 	}
 
 	cout << "Strażnicy zabici: " << guardKilled << endl;
@@ -422,17 +422,25 @@ int main()
 	setlocale(LC_ALL, "PL-pl");
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
-	system("cls");
-	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
+	writing("W 1321 roku kraj Iolan został pogrążony w mroku.\nZły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą\nGwiazda próbuje przejąć władzę nad państwem Sheldon.");
+	cout << endl;
 	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
+	cout << endl;
 	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
+	cout << endl;
 	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
-	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
-	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
+	cout << endl;
+	writing("aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy\nartefakt pozwalający na podróż w czasie - Kamień Natury.");
+	cout << endl;
+	writing("Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii\naby odnaleźć starożytny artefakt.");
 	cout << endl;
 	pak();
-	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
+	writing("Teraz możesz zapoznać się z głownymi bohaterami naszej wyprawy:");
+	cout << endl;
+	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem.\nMężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię.\nW wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres\notrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
+	cout << endl;
 	writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
+	cout << endl;
 	writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
 	cout << endl;
 	pak();
@@ -463,79 +471,70 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-				
+
 		setup();
-				while (!gameover)
-				{
-					draw(10);
-					input();
-					logic(10);
-					Sleep(10);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
-				cout << endl;
-				pak();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(10);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
+		cout << endl;
+		pak();
 
+		setup();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(40);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
+		cout << endl;
+		pak();
 
-
-				setup();
-				while (!gameover)
-				{
-					draw(10);
-					input();
-					logic(10);
-					Sleep(40);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
-				cout << endl;
-				pak();
-			
-			
-				setup();
-				while (!gameover)
-				{
-					draw(20);
-					input();
-					logic(20);
-					Sleep(30);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
-				cout << endl;
-				pak();
-			
-
-		writing("Możesz se przejść przez most");
+		setup();
+		while (!gameover)
+		{
+			draw(20);
+			input();
+			logic(20);
+			Sleep(30);
+		}
+		system("cls");
+		writing("UDAŁO CI SIĘ POKONAĆ STRAŻNIKA....");
+		cout << endl;
+		writing("W zamian pozwala ci przejść bezpiecznie przez most");
+		cout << endl;
+		writing("i mówi gdzie kierować się dalej");
 		cout << endl;
 		pak();
 		system("cls");
-		writing("Historia do ttt");
+		writing("Dzieki wskazówkom strażnika Mostu Zagłady udało ci się dostać do chaty starca\nktóry według opowieści ma dla ciebie klucz");
+		writing("Lecz nie będzie to takie proste\n musisz pokonać staruszka w jego ulubionej grze- kółko i krzyk.\n");
+		writing("Aby przejść dalej musisz się naprawde postarać bo dziadek przez wiele lat był uznawany\nza jednego z najlepszych w tę o to grę");
+		writing("Gdy wchodzisz do chaty dziadek mówi ci że jeżeli zdołasz go pokonasz 3 razy\ndostaniesz potrzebne informacje które ułatwią ci droge którą musisz pokoanać");
 		cout << endl;
 		pak();
 		TTT();
-		Sleep(2000);
-		system("cls");
-		writing("Brawo udało ci sie mnie pokonać po raz pierwszy, ciekawe czy umiesz to powtórzyć?");
+		writing("historia po ttt");
 		cout << endl;
 		pak();
-		TTT();
-		Sleep(2000);
-		system("cls");
-		writing("Szczęście nowicjusza, każdemu może się udać");
+		writing("Dzięki historii straca która ci opowiedział starzec dostajesz sie do mrocznego lasku przed dworkiem królewskim.");
+		cout << endl;
+		writing("W nim poznajesz jednego ze strażników który jest uznawany według rodu królewskiego jako jednego ze zdrajców");
+		cout << endl;
+		writing("Gdy dowiaduje on się że musisz wejść do zamku daje ci wskazówki i opowiada o reszcie strażników\naby łatwiej było ci się dostać do króla");
 		cout << endl;
 		pak();
-		TTT();
-		Sleep(2000);
-		system("cls");
-		writing("Niestety, jesteś pierwszą osobą przez którą poległem"); //tu trzeba ustawic zeby gierka sie resetowala po wyniku bo nie da sie grac kilka razy
-
-		writing("Historia po TTT");
+		writing("Historia przed walką");
 		cout << endl;
 		pak();
-
-
 		do
 		{
 			writing("Król: WYSŁAĆ PIERWSZĄ FALĘ STRAŻNIKÓW!");
@@ -587,7 +586,7 @@ int main()
 
 		} while (continueguards == 3);
 
-
+		writing("Historia po walce");
 
 
 		break;
