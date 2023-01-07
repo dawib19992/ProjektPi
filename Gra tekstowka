@@ -661,6 +661,7 @@ int main()
 		cout << "Za drzwiami znajdował się eliksir babel bohaterowie wypili go i poczuli błogosławieństwo bogów zatem ruszyli dalej, na pustyni ujrzeli chate pewnego czarnoksiężnika Janusza Mekki, jednak okazało się że Kyral i jego drużyna włada innym językiem, nasi bohaterowie muszą rozwiązać zadanie nim Mekka wyjawi im jakąś wskazówkę ";
 		rockpaper();
 		cout<<"Niech każdy rządzi swoim życiem, a reszta niech sobie leci"
+cout<<"Więc tak też postanowili zrobić, znaleźli potrzebne materiały i narzędzia i zaczęli budować maszynę latającą, co prawda kyral miał wątpliwości czy na pewno o to chodziło, ale demokratycznie zadecydowali że to na pewno dobry pomysł"
 		break;
 	}
 	case 3:
