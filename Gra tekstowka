@@ -11,8 +11,8 @@ using namespace std;
 bool gameover;
 
 const int height = 20;
-const int width = 20;
-int continuesnake = 0;
+const int width = 30;
+int continuesnake = 0; int continuettt = 0; int continueguards = 1;
 int snakelvl = 0;
 
 int x, y, fruitX, fruitY, score;
@@ -240,6 +240,7 @@ void copmuter_vs_player()
 			system("cls");
 			show_board_TTT();
 			cout << "Kyral wygrywa. " << endl;
+			continuettt++;
 			break;
 		}
 		else if (winner == 'O')
@@ -309,6 +310,92 @@ void show_board_TTT()
 	cout << "   " << board_TTT[6] << "   |   " << board_TTT[7] << "   |   " << board_TTT[8] << endl;
 	cout << "   " << "    |   " << "    |   " << endl;
 }
+int createGuard()
+{
+	if (rand() % 67 < 8)
+		return 11;
+
+	else
+		return 1 + rand() % 10;
+}
+void fighting()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		cout << "Fighting..." << endl;
+		Sleep(150);
+		system("cls");
+	}
+
+}
+void guards_game(int number, int skill)
+{
+	srand(time(NULL));
+	char enter;
+
+	int playerAlive = true;
+	int playerSkill = skill; int playerScore = 1;
+	int guardCount = number; int guardKilled = 0;
+
+	while (playerAlive && guardKilled < guardCount) {
+		int guardSkill = createGuard();
+
+		if (guardSkill > 10)
+		{
+			cout << endl << "Nadchodzi najsilniejszy strażnik uważaj..." << endl;
+			Sleep(2000);
+		}
+		else
+		{
+			cout << endl << "Nadchodzi strażnik..." << endl;
+			Sleep(2000);
+		}
+		fighting();
+
+		if (playerSkill < guardSkill) 
+		{
+			playerAlive = false;
+			cout << "Kyral zginął..." << endl;
+		}
+
+		else 
+		{
+		
+
+			if (playerSkill - guardSkill > 0)
+			{
+				cout << "Zabiłeś strażnika..." << endl;
+				playerScore = playerScore * 2;
+				Sleep(2000);
+			}
+
+			else
+			{
+				cout << "Podołałeś strażnikowi, ale poniosłeś pewne ubytki na zdrowiu..." << endl;
+				Sleep(2000);
+			}
+
+			guardKilled++;
+		}
+
+		cout << endl;
+		Sleep(100);
+	}
+	if (guardKilled == guardCount)
+	{
+		cout << "Kyral pokonał wszystkich strażników" << endl;
+		continueguards++;
+	}
+	else
+	{
+		cout << "Kyral nie żyje..." << endl;
+		
+	}
+
+	cout << "Strażnicy zabici: " << guardKilled << endl;
+	cout << "Wynik: " << playerScore << endl << endl;
+}
+
 
 void writing(string text)
 {
@@ -376,62 +463,135 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-		do
-		{
-			if (snakelvl == 0)
-			{
-				setup();
+				
+		setup();
 				while (!gameover)
 				{
-					draw(70);
+					draw(10);
 					input();
-					logic(70);
-					Sleep(70);
+					logic(10);
+					Sleep(10);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
 
-			else if (snakelvl == 1)
-			{
+
+
 				setup();
 				while (!gameover)
 				{
-					draw(120);
+					draw(10);
 					input();
-					logic(120);
+					logic(10);
 					Sleep(40);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
-			else if (snakelvl == 2)
-			{
+			
+			
 				setup();
 				while (!gameover)
 				{
-					draw(200);
+					draw(20);
 					input();
-					logic(200);
+					logic(20);
 					Sleep(30);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
-
-		} while (continuesnake != 3);
+			
 
 		writing("Możesz se przejść przez most");
+		cout << endl;
+		pak();
+		system("cls");
+		writing("Historia do ttt");
+		cout << endl;
+		pak();
 		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Brawo udało ci sie mnie pokonać po raz pierwszy, ciekawe czy umiesz to powtórzyć?");
+		cout << endl;
+		pak();
+		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Szczęście nowicjusza, każdemu może się udać");
+		cout << endl;
+		pak();
+		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Niestety, jesteś pierwszą osobą przez którą poległem"); //tu trzeba ustawic zeby gierka sie resetowala po wyniku bo nie da sie grac kilka razy
+
+		writing("Historia po TTT");
+		cout << endl;
+		pak();
+
+
+		do
+		{
+			writing("Król: WYSŁAĆ PIERWSZĄ FALĘ STRAŻNIKÓW!");
+			Sleep(2000);
+			system("cls");
+			guards_game(3, 9);
+			if (continueguards == 1)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 1);
+
+		do
+		{
+			writing("Król: WYSŁAĆ DRUGĄ FALĘ STRAŻNIKÓW!");
+			Sleep(1000);
+			cout << endl;
+			writing("Tej już nie podoła...");
+			Sleep(2000);
+			system("cls");
+			guards_game(6, 8);
+			if (continueguards == 2)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 2);
+
+		do
+		{
+			writing("Król: WYSTAWIĆ JUŻ OSTATNIA PIECHOTĘ!");
+			Sleep(1000);
+			cout << endl;
+			writing("Tylko w nich nadzieja...");
+			Sleep(2000);
+			system("cls");
+			guards_game(9, 7);
+			if (continueguards == 3)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 3);
+
+
+
+
+		break;
+
 	}
 	case 2:
 	{
