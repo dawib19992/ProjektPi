@@ -11,7 +11,7 @@ using namespace std;
 bool gameover;
 
 const int height = 20;
-const int width = 20;
+const int width = 30;
 int continuesnake = 0; int continuettt = 0; int continueguards = 1;
 int snakelvl = 0;
 
@@ -463,59 +463,49 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-		do
-		{
-			if (snakelvl == 0)
-			{
-				setup();
+				
+		setup();
 				while (!gameover)
 				{
-					draw(70);
+					draw(10);
 					input();
-					logic(70);
-					Sleep(70);
+					logic(10);
+					Sleep(10);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
 
-			else if (snakelvl == 1)
-			{
+
+
 				setup();
 				while (!gameover)
 				{
-					draw(120);
+					draw(10);
 					input();
-					logic(120);
+					logic(10);
 					Sleep(40);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
-			else if (snakelvl == 2)
-			{
+			
+			
 				setup();
 				while (!gameover)
 				{
-					draw(200);
+					draw(20);
 					input();
-					logic(200);
+					logic(20);
 					Sleep(30);
 				}
 				system("cls");
 				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
-				Sleep(5000);
 				cout << endl;
 				pak();
-			}
-
-		} while (continuesnake != 3);
+			
 
 		writing("Możesz se przejść przez most");
 		cout << endl;
@@ -525,15 +515,21 @@ int main()
 		cout << endl;
 		pak();
 		TTT();
+		Sleep(2000);
+		system("cls");
 		writing("Brawo udało ci sie mnie pokonać po raz pierwszy, ciekawe czy umiesz to powtórzyć?");
 		cout << endl;
 		pak();
 		TTT();
+		Sleep(2000);
+		system("cls");
 		writing("Szczęście nowicjusza, każdemu może się udać");
 		cout << endl;
 		pak();
 		TTT();
-		writing("Niestety, jesteś pierwszą osobą przez którą poległem"); // tu trzeba zrobić algorytm ktory po n probach bedzie wypuszczał gracza 
+		Sleep(2000);
+		system("cls");
+		writing("Niestety, jesteś pierwszą osobą przez którą poległem"); //tu trzeba ustawic zeby gierka sie resetowala po wyniku bo nie da sie grac kilka razy
 
 		writing("Historia po TTT");
 		cout << endl;
