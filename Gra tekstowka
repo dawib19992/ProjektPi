@@ -467,15 +467,15 @@ void starwars() {
 	const int MAX_SHIPS = 100;
 	const int MIN_SHIPS = 10;
 	srand(time(NULL));
-	std::string playerName;
-	std::cout << "Enter your name: ";
-	std::cin >> playerName;
+	
+	
+	
 	int numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 
-	std::cout << "Welcome, " << playerName << "! You are the commander of a fleet of space ships.\n";
-	std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
-	std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
-	std::cout << "Good luck!\n\n";
+	std::cout << "Witaj, zostałeś głównym dowódcą sił międzygwiezdnych.\n";
+	std::cout << "Twoją misją będzie zniszczyć flotę przeciwnika oraz niedopuścić do zniszczenia swojej planety.\n";
+	std::cout << "Masz w zanadrzu " << numShips << "statków kosmicznych.\n";
+	std::cout << "Powodzenia!\n\n";
 
 
 	bool enemyDefeated = false;
@@ -487,28 +487,27 @@ void starwars() {
 			system("cls");
 			numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 			std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-			std::cout << "Welcome, again " << playerName << "! You are the commander of a fleet of space ships.\n";
-			std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
-			std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
-			std::cout << "Good luck!\n\n";
+			std::cout << "Witaj ponownie!Jako dowódca musisz pokonać twojego wroga by przejść do dalszej części fabuły.\n";
+			std::cout << "Masz w zanadrzu " << numShips << " statków kosmicznych.\n";
+			std::cout << "Powodzenia!\n\n";
 		}
 		enemyDefeated = false;
 		defeated = false;
 		//std::string name = "Player";
-		std::string enemyName = "Enemy";
+		std::string enemyName = "Przeciwnik";
 		int numPlanets = 1;
 		int enemyNumPlanets = 1;
 		int enemyNumShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 
 		while (!defeated && !enemyDefeated)
 		{
-			std::cout << "Current state of the game:\n";
-			std::cout << playerName << " controls " << numPlanets << " planets and has " << numShips << " ships.\n";
-			std::cout << enemyName << " controls " << enemyNumPlanets << " planets and has " << enemyNumShips << " ships.\n";
-			std::cout << "\nWhat do you want to do?\n";
-			std::cout << "1. Attack enemy planet\n";
-			std::cout << "2. Defend your planet\n";
-			std::cout << "3. Focus on producing\n";
+			std::cout << "Aktualny stan gry:\n";
+			std::cout << "Kontrolujesz " << numPlanets << " planetę i posiadasz " << numShips << " statków kosmicznych.\n";
+			std::cout << "Kontroluje " << enemyNumPlanets << " planetę i posiada " << enemyNumShips << " statków kosmicznych.\n";
+			std::cout << "\nCo zamierzasz teraz zrobić?\n";
+			std::cout << "1. Atakuj planetę przeciwnika\n";
+			std::cout << "2. Broń swojej planety\n";
+			std::cout << "3. Skup się na produkcji statków\n";
 
 			int choice;
 			std::cin >> choice;
@@ -516,13 +515,13 @@ void starwars() {
 			if (choice == 1)
 			{
 
-				std::cout << "Enter number of ships to use in attack: ";
+				std::cout << "Ile statków chcesz użyć do ataku: ";
 				int attackShips;
 				std::cin >> attackShips;
 
 				if (attackShips > numShips)
 				{
-					std::cout << "You don't have that many ships!\n";
+					std::cout << "Nie masz tylu statków!\n";
 
 				}
 
@@ -530,13 +529,13 @@ void starwars() {
 				int attackResult = rand() % 2;
 				if (attackResult == 0)
 				{
-					std::cout << "Attack failed!\n";
+					std::cout << "Atak się nie powiódł!\n";
 
 					numShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 
 				}
 				else {
-					std::cout << "Attack successful!\n";
+					std::cout << "Atak zakończył się sukcesem!\n";
 					enemyNumShips -= attackShips;
 
 				}
@@ -545,13 +544,13 @@ void starwars() {
 			else if (choice == 2)
 			{
 
-				std::cout << "Enter number of ships to use in defense: ";
+				std::cout << "Ile statków chcesz przeznaczyć do obrony: ";
 				int defenseShips;
 				std::cin >> defenseShips;
 
 				if (defenseShips > numShips)
 				{
-					std::cout << "You don't have that many ships!\n";
+					std::cout << "Nie masz tylu statków!\n";
 
 				}
 
@@ -559,12 +558,12 @@ void starwars() {
 				int enemyAttackResult = rand() % 2;
 				if (enemyAttackResult == 0)
 				{
-					std::cout << "Enemy attack failed!\n";
+					std::cout << "Atak przeciwnika nieudany!\n";
 					enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 
 				}
 				else {
-					std::cout << "Enemy attack successful!\n";
+					std::cout << "Przeciwnik zniszczył twoje statki!\n";
 					numShips -= enemyNumShips;
 				}
 
@@ -574,19 +573,19 @@ void starwars() {
 				int enemyChoice = rand() % 2;
 				if (enemyChoice == 1)
 				{
-					std::cout << enemyName << " is attacking your planet!\n";
+					std::cout << enemyName << " atakuje twoją planetę!\n";
 
 					int enemyAttackShips = rand() % (enemyNumShips);
 
 					int enemyAttackResult = rand() % 2;
 					if (enemyAttackResult == 0)
 					{
-						std::cout << "Enemy attack failed!\n";
+						std::cout << "Atak przeciwnika nieudany!\n";
 						enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
 
 					}
 					else {
-						std::cout << "Enemy attack successful!\n";
+						std::cout << "Przeciwnik zniszczył twoje statki!\n";
 						numShips -= enemyNumShips;
 					}
 				}
@@ -604,19 +603,19 @@ void starwars() {
 			if (numShips <= 0 && enemyNumShips <= 0)
 			{
 				defeated = true;
-				std::cout << "everything has been detroyed";
+				std::cout << "Wszystko zostało zniszczone";
 				std::this_thread::sleep_for(std::chrono::seconds(4));
 			}
 			else if (numShips <= 0)
 			{
 				defeated = true;
-				std::cout << "**************************************\n->>>" << playerName << " has been defeated!<<<-\n**************************************\n";
+				std::cout <<  "**************************************\n->>>Zostałeś pokonany!<<<-\n**************************************\n";
 				std::this_thread::sleep_for(std::chrono::seconds(4));
 			}
 			else if (enemyNumShips <= 0)
 			{
 				enemyDefeated = true;
-				std::cout << "**************************************\nCONGRATULATIONS->>>" << enemyName << " has been defeated!<<<-CONGRATULATIONS\n**************************************\n";
+				std::cout << "**************************************\nGRATULACJE->>>" << enemyName << " został pokonany!<<<-GRATULACJE\n**************************************\n";
 				std::this_thread::sleep_for(std::chrono::seconds(4));
 			}
 
