@@ -653,7 +653,7 @@ int main()
 			writing("Viltres: WYSŁAĆ PIERWSZĄ FALĘ WOJOWNIKÓW!");
 			Sleep(2000);
 			system("cls");
-			continueguards = guards_game(3, 9);
+			continueguards= guards_game(3, 9);
 			if (continueguards == 0)
 			{
 				cout << "Kyral poległ i jego kompania polegi, niech spróbują jeszcze raz..." << endl;
@@ -706,10 +706,10 @@ int main()
 		break;
 	}
 	default:
-	{
+		{
 		cout << "Nie wybrałeś drzwi gra się kończy..";
 		break;
-	}
+		}
 	}
 	}
 }
