@@ -25,9 +25,11 @@ int tailX[100], tailY[100], ntail;
 enum edirection { STOP = 0, UP, DOWN, LEFT, RIGHT };
 edirection dir;
 
+
+
 void setup()
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	gameover = false;
 	dir = STOP;
 	x = width / 2;
@@ -191,7 +193,7 @@ int TTT()
 
 void get_TTT_computer_choice()
 {
-	srand(time(0));
+	//srand(time(0));
 	int choice;
 	do {
 		choice = rand() % 10;
@@ -333,7 +335,7 @@ void fighting()
 }
 void guards_game(int number, int skill)
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	char enter;
 
 	int playerAlive = true;
@@ -355,15 +357,15 @@ void guards_game(int number, int skill)
 		}
 		fighting();
 
-		if (playerSkill < guardSkill) 
+		if (playerSkill < guardSkill)
 		{
 			playerAlive = false;
 			cout << "Kyral zginął..." << endl;
 		}
 
-		else 
+		else
 		{
-		
+
 
 			if (playerSkill - guardSkill > 0)
 			{
@@ -392,72 +394,234 @@ void guards_game(int number, int skill)
 	else
 	{
 		cout << "Kyral nie żyje..." << endl;
-		
+
 	}
 
 	cout << "Strażnicy zabici: " << guardKilled << endl;
 	cout << "Wynik: " << playerScore << endl << endl;
 }
 
-void rockpaper(){
+void rockpaper() {
 
-    std::string choices[3] = { "rock", "paper", "scissors" };
+	std::string choices[3] = { "rock", "paper", "scissors" };
 
-    std::string player_choice;
+	std::string player_choice;
 
-    std::string computer_choice;
+	std::string computer_choice;
 
-    std::string result;
+	std::string result;
 
-    do {
-        system("cls");
-        std::srand(time(NULL));
-        int comp_choice = std::rand() % 3;
-        computer_choice = choices[comp_choice];
+	do {
+		system("cls");
+		//std::srand(time(NULL));
+		int comp_choice = std::rand() % 3;
+		computer_choice = choices[comp_choice];
 
-        std::cout << "Choose rock, paper, or scissors: " << std::endl << std::endl;
-        std::cout << "                  --------      /\\    /\\   " << std::endl;
-        std::cout << "      ____        |      |      \\ \\  / /   " << std::endl;
-        std::cout << "     /    \\       |      |       \\ \\/ /    " << std::endl;
-        std::cout << "    /      \\      |      |        \\/\\/     " << std::endl;
-        std::cout << "   /        \\     |      |       //\\/\\\\   " << std::endl;
-        std::cout << "   \\        /     |      |      // /\\ \\\\  " << std::endl;
-        std::cout << "    \\______/      --------      \\\\/  \\//  " << std::endl << std::endl;
-        std::cin >> player_choice;
+		std::cout << "Choose rock, paper, or scissors: " << std::endl << std::endl;
+		std::cout << "                  --------      /\\    /\\   " << std::endl;
+		std::cout << "      ____        |      |      \\ \\  / /   " << std::endl;
+		std::cout << "     /    \\       |      |       \\ \\/ /    " << std::endl;
+		std::cout << "    /      \\      |      |        \\/\\/     " << std::endl;
+		std::cout << "   /        \\     |      |       //\\/\\\\   " << std::endl;
+		std::cout << "   \\        /     |      |      // /\\ \\\\  " << std::endl;
+		std::cout << "    \\______/      --------      \\\\/  \\//  " << std::endl << std::endl;
+		std::cin >> player_choice;
 
-        if (player_choice == computer_choice) {
-            result = "draw";
-        }
-        else if (player_choice == "rock" && computer_choice == "paper") {
-            result = "you lose";
-        }
-        else if (player_choice == "rock" && computer_choice == "scissors") {
-            result = "you win";
-        }
-        else if (player_choice == "paper" && computer_choice == "rock") {
-            result = "you win";
-        }
-        else if (player_choice == "paper" && computer_choice == "scissors") {
-            result = "you lose";
-        }
-        else if (player_choice == "scissors" && computer_choice == "rock") {
-            result = "you lose";
-        }
-        else if (player_choice == "scissors" && computer_choice == "paper") {
-            result = "you win";
-        }
+		if (player_choice == computer_choice) {
+			result = "draw";
+		}
+		else if (player_choice == "rock" && computer_choice == "paper") {
+			result = "you lose";
+		}
+		else if (player_choice == "rock" && computer_choice == "scissors") {
+			result = "you win";
+		}
+		else if (player_choice == "paper" && computer_choice == "rock") {
+			result = "you win";
+		}
+		else if (player_choice == "paper" && computer_choice == "scissors") {
+			result = "you lose";
+		}
+		else if (player_choice == "scissors" && computer_choice == "rock") {
+			result = "you lose";
+		}
+		else if (player_choice == "scissors" && computer_choice == "paper") {
+			result = "you win";
+		}
 
-        std::cout << "Your choice: " << player_choice << std::endl;
-        std::cout << "Computer's choice: " << computer_choice << std::endl;
-        if (result == "you win")
-        {
-            std::cout << "  || || || || || " << std::endl;
-        std::cout << "  \\/ \\/ \\/ \\/ \\/" << std::endl;
+		std::cout << "Your choice: " << player_choice << std::endl;
+		std::cout << "Computer's choice: " << computer_choice << std::endl;
+		if (result == "you win")
+		{
+			std::cout << "  || || || || || " << std::endl;
+			std::cout << "  \\/ \\/ \\/ \\/ \\/" << std::endl;
 
-        }
-        std::cout << "Result: " << result << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(3));
-    } while (result != "you win");
+		}
+		std::cout << "Result: " << result << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(3));
+	} while (result != "you win");
+}
+
+void starwars() {
+	const int MAX_PLANETS = 10;
+	const int MAX_SHIPS = 100;
+	const int MIN_SHIPS = 10;
+	srand(time(NULL));
+	std::string playerName;
+	std::cout << "Enter your name: ";
+	std::cin >> playerName;
+	int numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+	std::cout << "Welcome, " << playerName << "! You are the commander of a fleet of space ships.\n";
+	std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
+	std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
+	std::cout << "Good luck!\n\n";
+
+
+	bool enemyDefeated = false;
+	bool defeated = false;
+
+	do {
+
+		if (defeated == true) {
+			system("cls");
+			numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+			std::cout << "Welcome, again " << playerName << "! You are the commander of a fleet of space ships.\n";
+			std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
+			std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
+			std::cout << "Good luck!\n\n";
+		}
+		enemyDefeated = false;
+		defeated = false;
+		//std::string name = "Player";
+		std::string enemyName = "Enemy";
+		int numPlanets = 1;
+		int enemyNumPlanets = 1;
+		int enemyNumShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+		while (!defeated && !enemyDefeated)
+		{
+			std::cout << "Current state of the game:\n";
+			std::cout << playerName << " controls " << numPlanets << " planets and has " << numShips << " ships.\n";
+			std::cout << enemyName << " controls " << enemyNumPlanets << " planets and has " << enemyNumShips << " ships.\n";
+			std::cout << "\nWhat do you want to do?\n";
+			std::cout << "1. Attack enemy planet\n";
+			std::cout << "2. Defend your planet\n";
+			std::cout << "3. Focus on producing\n";
+
+			int choice;
+			std::cin >> choice;
+
+			if (choice == 1)
+			{
+
+				std::cout << "Enter number of ships to use in attack: ";
+				int attackShips;
+				std::cin >> attackShips;
+
+				if (attackShips > numShips)
+				{
+					std::cout << "You don't have that many ships!\n";
+
+				}
+
+
+				int attackResult = rand() % 2;
+				if (attackResult == 0)
+				{
+					std::cout << "Attack failed!\n";
+
+					numShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+				}
+				else {
+					std::cout << "Attack successful!\n";
+					enemyNumShips -= attackShips;
+
+				}
+
+			}
+			else if (choice == 2)
+			{
+
+				std::cout << "Enter number of ships to use in defense: ";
+				int defenseShips;
+				std::cin >> defenseShips;
+
+				if (defenseShips > numShips)
+				{
+					std::cout << "You don't have that many ships!\n";
+
+				}
+
+
+				int enemyAttackResult = rand() % 2;
+				if (enemyAttackResult == 0)
+				{
+					std::cout << "Enemy attack failed!\n";
+					enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+				}
+				else {
+					std::cout << "Enemy attack successful!\n";
+					numShips -= enemyNumShips;
+				}
+
+
+
+
+				int enemyChoice = rand() % 2;
+				if (enemyChoice == 1)
+				{
+					std::cout << enemyName << " is attacking your planet!\n";
+
+					int enemyAttackShips = rand() % (enemyNumShips);
+
+					int enemyAttackResult = rand() % 2;
+					if (enemyAttackResult == 0)
+					{
+						std::cout << "Enemy attack failed!\n";
+						enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+					}
+					else {
+						std::cout << "Enemy attack successful!\n";
+						numShips -= enemyNumShips;
+					}
+				}
+			}
+			else if (choice == 3)
+			{
+				numShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+				enemyNumShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			}
+			else {
+				enemyNumShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			}
+
+
+			if (numShips <= 0 && enemyNumShips <= 0)
+			{
+				defeated = true;
+				std::cout << "everything has been detroyed";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+			else if (numShips <= 0)
+			{
+				defeated = true;
+				std::cout << "**************************************\n->>>" << playerName << " has been defeated!<<<-\n**************************************\n";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+			else if (enemyNumShips <= 0)
+			{
+				enemyDefeated = true;
+				std::cout << "**************************************\nCONGRATULATIONS->>>" << enemyName << " has been defeated!<<<-CONGRATULATIONS\n**************************************\n";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+
+		}
+	} while (defeated == true);
 }
 
 void writing(string text)
@@ -482,7 +646,9 @@ void pak() //czekanie na reakcje użytkownika
 
 int main()
 {
+
 	setlocale(LC_ALL, "PL-pl");
+	srand(time(NULL));
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
 	system("cls");
@@ -526,49 +692,49 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-				
+
 		setup();
-				while (!gameover)
-				{
-					draw(10);
-					input();
-					logic(10);
-					Sleep(10);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
-				cout << endl;
-				pak();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(10);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
+		cout << endl;
+		pak();
 
 
 
-				setup();
-				while (!gameover)
-				{
-					draw(10);
-					input();
-					logic(10);
-					Sleep(40);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
-				cout << endl;
-				pak();
-			
-			
-				setup();
-				while (!gameover)
-				{
-					draw(20);
-					input();
-					logic(20);
-					Sleep(30);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
-				cout << endl;
-				pak();
-			
+		setup();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(40);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
+		cout << endl;
+		pak();
+
+
+		setup();
+		while (!gameover)
+		{
+			draw(20);
+			input();
+			logic(20);
+			Sleep(30);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
+		cout << endl;
+		pak();
+
 
 		writing("Możesz se przejść przez most");
 		cout << endl;
@@ -658,15 +824,25 @@ int main()
 	}
 	case 2:
 	{
-		cout << "Za drzwiami znajdował się eliksir babel bohaterowie wypili go i poczuli błogosławieństwo bogów zatem ruszyli dalej, na pustyni ujrzeli chate pewnego czarnoksiężnika Jonasza Korana Mekkego, jednak okazało się że Kyral i jego drużyna włada innym językiem, nasi bohaterowie muszą rozwiązać zadanie nim Mekka wyjawi im jakąś wskazówkę ";
+		cout << " Za drzwiami znajdował się eliksir babel bohaterowie wypili go i poczuli błogosławieństwo bogów zatem ruszyli dalej,\nna pustyni ujrzeli chate pewnego czarnoksiężnika Jonasza Korana Mekke,\njednak okazało się że Kyral i jego drużyna włada innym językiem,\nnasi bohaterowie muszą rozwiązać zadanie nim Mekka wyjawi im jakąś wskazówkę\n";
+		Sleep(10000);
 		rockpaper();
-		cout<<"Niech każdy rządzi swoim życiem, a reszta niech sobie leci";
 		system("cls");
-cout<<"Więc tak też postanowili zrobić, znaleźli potrzebne materiały i narzędzia i zaczęli budować maszynę latającą, co prawda Kyral miał wątpliwości czy na pewno o to chodziło, ale demokratycznie zadecydowali że to dobry pomysł zatem zbudowali i polecieli "<<endl;
-		cout<<"Kyral i jego kompania lecieli swoją maszyną latającą w stronę tajemniczej krainy, gdzie według legend miał znajdować się Kamień Natury. Podczas lotu zauważyli dziwną chmurę, która szybko się zbliżała. Błyskawicznie zostali wciągnięci w głąb mrocznej struktury, gdzie spotkali się z tajemniczymi istotami porozumiewającymi się bez słowa. Nieznane istoty szybko zaopiekowały się i pomogły naszym bohaterom aż do samego końca gdzie pokazali im portal, którym rzekomo można się dostać w każdy zakątek krainy.  ";
+		cout << " \"Niech każdy rządzi swoim życiem, a reszta niech sobie leci\"\n";
+		Sleep(10000);
 		system("cls");
-		cout<<"Okazało się ,że nasza drużyna wpadła prosto w zasadzke Viltresa i nie pozostaje im nic innego jak walczyć o wszystko albo zostać z niczym umierając śmiercią wojownika lub będąc skazanym na wieczną hańbę"<<ednl<< "By wygrać z Viltresem muisz pokonać go w jego ulubionej grze";
-		
+		cout << "Więc tak też postanowili zrobić, znaleźli potrzebne materiały i narzędzia i zaczęli budować maszynę latającą,\nco prawda Kyral miał wątpliwości czy na pewno o to chodziło,\nale demokratycznie zadecydowali że to dobry pomysł zatem zbudowali i polecieli\n" << endl;
+		Sleep(10000);
+		system("cls");
+		cout << "Kyral i jego kompania lecieli swoją maszyną latającą w stronę tajemniczej krainy,\ngdzie według legend miał znajdować się Kamień Natury.\nPodczas lotu zauważyli dziwną chmurę, która szybko się zbliżała.\nBłyskawicznie zostali wciągnięci w głąb mrocznej struktury,\ngdzie spotkali się z tajemniczymi istotami porozumiewającymi się bez słowa.\nNieznane istoty szybko zainteresowały się gośćmi,\na Kyral obserwując zachowania istot rzucił im wyzwanie w zamian za pomoc.\nJeden z generałów zdawał się przystać na propozycje, więc siedli do pojedynku";
+		Sleep(50000);
+		system("cls");
+		starwars();
+		system("cls");
+		cout << "Stary generał w niezadobrym humorze pokazał im portal,\nktórym jak przedstawiono naszym bohaterom można się dostać w każdy zakątek krainy\n";
+		cout << "Okazało się ,że nasza drużyna wpadła prosto w zasadzke Viltresa\nNie pozostaje im nic innego jak walczyć o wszystko albo zostać z niczym umierając śmiercią wojownika lub będąc skazanym na wieczną hańbę\n" << endl << "By wygrać z Viltresem muisz pokonać go w jego ulubionej grze";
+		Sleep(10000);
+		system("cls");
 		break;
 	}
 	case 3:
