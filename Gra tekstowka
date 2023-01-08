@@ -4,13 +4,18 @@
 #include <conio.h>
 #include <string>
 #include <cstdio>
+#include <ctime>
+#include <random>
+#include <thread>
+#include <chrono>
+#include <cstdlib>
 
 using namespace std;
 bool gameover;
 
 const int height = 20;
-const int width = 20;
-int continuesnake=0;
+const int width = 30;
+int continuesnake = 0; int continuettt = 0; int continueguards = 1;
 int snakelvl = 0;
 
 int x, y, fruitX, fruitY, score;
@@ -20,9 +25,11 @@ int tailX[100], tailY[100], ntail;
 enum edirection { STOP = 0, UP, DOWN, LEFT, RIGHT };
 edirection dir;
 
+
+
 void setup()
 {
-	srand(time(NULL));
+	//srand(time(NULL));
 	gameover = false;
 	dir = STOP;
 	x = width / 2;
@@ -48,7 +55,7 @@ void draw(int points)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (j == 0 || j == width-1)
+			if (j == 0 || j == width - 1)
 				cout << "#";
 			else if (i == y && j == x)
 				cout << "o";
@@ -64,11 +71,11 @@ void draw(int points)
 						cout << "+";
 						print = true;
 					}
-					
+
 				}
 				if (!print)
 					cout << " ";
-				
+
 			}
 
 		}
@@ -81,7 +88,7 @@ void draw(int points)
 		cout << "#";
 	}
 	cout << endl << endl;
-	
+
 }
 void input()
 {
@@ -144,18 +151,18 @@ void logic(int points)
 	if (x<0 || x>width || y<0 || y>height)
 	{
 		ntail--;
-		score-=10;
-		x = width/2;
-		y = height/2;
+		score -= 10;
+		x = width / 2;
+		y = height / 2;
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 	}
-	
+
 	if (x == fruitX && y == fruitY)
 	{
 		ntail++;
 		score += 10;
-		Beep(150,280);
+		Beep(150, 280);
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 	}
@@ -166,70 +173,518 @@ void logic(int points)
 		score = 0;
 		ntail = 0;
 	}
-		
+
 
 }
 
+char board_TTT[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+void show_board_TTT();
+void get_TTT_player_chocie();
+void get_TTT_computer_choice();
+int count_boardTTT(char symbolTTC);
+char check_winnerTTT();
+void copmuter_vs_player();
+
+int TTT()
+{
+	copmuter_vs_player();
+	return 0;
+}
+
+void get_TTT_computer_choice()
+{
+	//srand(time(0));
+	int choice;
+	do {
+		choice = rand() % 10;
+	} while (board_TTT[choice] != ' ');
+	board_TTT[choice] = 'O';
+}
+void get_TTT_player_chocie()
+{
+	while (true)
+	{
+		cout << "Wybierz pole które chcesz zaznaczyć. (1 - 9): ";
+		int choice_TTT;
+		cin >> choice_TTT;
+		choice_TTT--;
+		if (choice_TTT < 0 || choice_TTT>8)
+		{
+			cout << "Wybierz pole które chcesz zaznaczyć. (1 -9): ";
+		}
+		else if (board_TTT[choice_TTT] != ' ')
+		{
+			cout << "Wybierz wolne miejsce na planszy:  ";
+
+		}
+		else
+		{
+			board_TTT[choice_TTT] = 'X';
+			break;
+		}
+	}
+}
+void copmuter_vs_player()
+{
+	while (true)
+	{
+		system("cls");
+		show_board_TTT();
+		if (count_boardTTT('X') == count_boardTTT('O'))
+		{
+			cout << "Kolej Kyrala " << endl;
+			get_TTT_player_chocie();
+		}
+		else
+		{
+			get_TTT_computer_choice();
+		}
+		char winner = check_winnerTTT();
+		if (winner == 'X')
+		{
+			system("cls");
+			show_board_TTT();
+			cout << "Kyral wygrywa. " << endl;
+			continuettt++;
+			break;
+		}
+		else if (winner == 'O')
+		{
+			system("cls");
+			show_board_TTT();
+			cout << "Kyral przegrywa. " << endl;
+			break;
+		}
+		else if (winner == 'D')
+		{
+			cout << "Remis" << endl;
+			break;
+		}
+	}
+}
+
+int count_boardTTT(char symbol)
+{
+	int total_TTT = 0;
+	for (int i = 0; i < 9; i++)
+	{
+		if (board_TTT[i] == symbol)
+			total_TTT += 1;
+	}
+	return total_TTT;
+}
+char check_winnerTTT()
+{
+	// row
+	if (board_TTT[0] == board_TTT[1] && board_TTT[1] == board_TTT[2] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[3] == board_TTT[4] && board_TTT[4] == board_TTT[5] && board_TTT[3] != ' ')
+		return board_TTT[3];
+	if (board_TTT[6] == board_TTT[7] && board_TTT[7] == board_TTT[8] && board_TTT[6] != ' ')
+		return board_TTT[6];
+	//coulmn
+	if (board_TTT[0] == board_TTT[3] && board_TTT[3] == board_TTT[6] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[1] == board_TTT[4] && board_TTT[4] == board_TTT[7] && board_TTT[1] != ' ')
+		return board_TTT[1];
+	if (board_TTT[2] == board_TTT[5] && board_TTT[5] == board_TTT[8] && board_TTT[2] != ' ')
+		return board_TTT[2];
+	//diagonal
+	if (board_TTT[0] == board_TTT[4] && board_TTT[4] == board_TTT[8] && board_TTT[0] != ' ')
+		return board_TTT[0];
+	if (board_TTT[2] == board_TTT[4] && board_TTT[4] == board_TTT[6] && board_TTT[2] != ' ')
+		return board_TTT[2];
+	//draw
+	if (count_boardTTT('X') + count_boardTTT('0') < 9)
+		return 'C';
+	else
+		return 'D';
+}
+
+void show_board_TTT()
+{
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[0] << "   |   " << board_TTT[1] << "   |   " << board_TTT[2] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "----------------------" << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[3] << "   |   " << board_TTT[4] << "   |   " << board_TTT[5] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "----------------------" << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+	cout << "   " << board_TTT[6] << "   |   " << board_TTT[7] << "   |   " << board_TTT[8] << endl;
+	cout << "   " << "    |   " << "    |   " << endl;
+}
+int createGuard()
+{
+	if (rand() % 67 < 8)
+		return 11;
+
+	else
+		return 1 + rand() % 10;
+}
+void fighting()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		cout << "Fighting..." << endl;
+		Sleep(150);
+		system("cls");
+	}
+
+}
+void guards_game(int number, int skill)
+{
+	//srand(time(NULL));
+	char enter;
+
+	int playerAlive = true;
+	int playerSkill = skill; int playerScore = 1;
+	int guardCount = number; int guardKilled = 0;
+
+	while (playerAlive && guardKilled < guardCount) {
+		int guardSkill = createGuard();
+
+		if (guardSkill > 10)
+		{
+			cout << endl << "Nadchodzi najsilniejszy strażnik uważaj..." << endl;
+			Sleep(2000);
+		}
+		else
+		{
+			cout << endl << "Nadchodzi strażnik..." << endl;
+			Sleep(2000);
+		}
+		fighting();
+
+		if (playerSkill < guardSkill)
+		{
+			playerAlive = false;
+			cout << "Kyral zginął..." << endl;
+		}
+
+		else
+		{
+
+
+			if (playerSkill - guardSkill > 0)
+			{
+				cout << "Zabiłeś strażnika..." << endl;
+				playerScore = playerScore * 2;
+				Sleep(2000);
+			}
+
+			else
+			{
+				cout << "Podołałeś strażnikowi, ale poniosłeś pewne ubytki na zdrowiu..." << endl;
+				Sleep(2000);
+			}
+
+			guardKilled++;
+		}
+
+		cout << endl;
+		Sleep(100);
+	}
+	if (guardKilled == guardCount)
+	{
+		cout << "Kyral pokonał wszystkich strażników" << endl;
+		continueguards++;
+	}
+	else
+	{
+		cout << "Kyral nie żyje..." << endl;
+
+	}
+
+	cout << "Strażnicy zabici: " << guardKilled << endl;
+	cout << "Wynik: " << playerScore << endl << endl;
+}
+
+void rockpaper() {
+
+	std::string choices[3] = { "rock", "paper", "scissors" };
+
+	std::string player_choice;
+
+	std::string computer_choice;
+
+	std::string result;
+
+	do {
+		system("cls");
+		//std::srand(time(NULL));
+		int comp_choice = std::rand() % 3;
+		computer_choice = choices[comp_choice];
+
+		std::cout << "Choose rock, paper, or scissors: " << std::endl << std::endl;
+		std::cout << "                  --------      /\\    /\\   " << std::endl;
+		std::cout << "      ____        |      |      \\ \\  / /   " << std::endl;
+		std::cout << "     /    \\       |      |       \\ \\/ /    " << std::endl;
+		std::cout << "    /      \\      |      |        \\/\\/     " << std::endl;
+		std::cout << "   /        \\     |      |       //\\/\\\\   " << std::endl;
+		std::cout << "   \\        /     |      |      // /\\ \\\\  " << std::endl;
+		std::cout << "    \\______/      --------      \\\\/  \\//  " << std::endl << std::endl;
+		std::cin >> player_choice;
+
+		if (player_choice == computer_choice) {
+			result = "draw";
+		}
+		else if (player_choice == "rock" && computer_choice == "paper") {
+			result = "you lose";
+		}
+		else if (player_choice == "rock" && computer_choice == "scissors") {
+			result = "you win";
+		}
+		else if (player_choice == "paper" && computer_choice == "rock") {
+			result = "you win";
+		}
+		else if (player_choice == "paper" && computer_choice == "scissors") {
+			result = "you lose";
+		}
+		else if (player_choice == "scissors" && computer_choice == "rock") {
+			result = "you lose";
+		}
+		else if (player_choice == "scissors" && computer_choice == "paper") {
+			result = "you win";
+		}
+
+		std::cout << "Your choice: " << player_choice << std::endl;
+		std::cout << "Computer's choice: " << computer_choice << std::endl;
+		if (result == "you win")
+		{
+			std::cout << "  || || || || || " << std::endl;
+			std::cout << "  \\/ \\/ \\/ \\/ \\/" << std::endl;
+
+		}
+		std::cout << "Result: " << result << std::endl;
+		std::this_thread::sleep_for(std::chrono::seconds(3));
+	} while (result != "you win");
+}
+
+void starwars() {
+	const int MAX_PLANETS = 10;
+	const int MAX_SHIPS = 100;
+	const int MIN_SHIPS = 10;
+	srand(time(NULL));
+	std::string playerName;
+	std::cout << "Enter your name: ";
+	std::cin >> playerName;
+	int numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+	std::cout << "Welcome, " << playerName << "! You are the commander of a fleet of space ships.\n";
+	std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
+	std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
+	std::cout << "Good luck!\n\n";
+
+
+	bool enemyDefeated = false;
+	bool defeated = false;
+
+	do {
+
+		if (defeated == true) {
+			system("cls");
+			numShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+			std::cout << "Welcome, again " << playerName << "! You are the commander of a fleet of space ships.\n";
+			std::cout << "Your mission is to conquer as many planets as possible and defend your own from attacks of other players.\n";
+			std::cout << "You have a total of " << numShips << " ships at your disposal.\n";
+			std::cout << "Good luck!\n\n";
+		}
+		enemyDefeated = false;
+		defeated = false;
+		//std::string name = "Player";
+		std::string enemyName = "Enemy";
+		int numPlanets = 1;
+		int enemyNumPlanets = 1;
+		int enemyNumShips = MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+		while (!defeated && !enemyDefeated)
+		{
+			std::cout << "Current state of the game:\n";
+			std::cout << playerName << " controls " << numPlanets << " planets and has " << numShips << " ships.\n";
+			std::cout << enemyName << " controls " << enemyNumPlanets << " planets and has " << enemyNumShips << " ships.\n";
+			std::cout << "\nWhat do you want to do?\n";
+			std::cout << "1. Attack enemy planet\n";
+			std::cout << "2. Defend your planet\n";
+			std::cout << "3. Focus on producing\n";
+
+			int choice;
+			std::cin >> choice;
+
+			if (choice == 1)
+			{
+
+				std::cout << "Enter number of ships to use in attack: ";
+				int attackShips;
+				std::cin >> attackShips;
+
+				if (attackShips > numShips)
+				{
+					std::cout << "You don't have that many ships!\n";
+
+				}
+
+
+				int attackResult = rand() % 2;
+				if (attackResult == 0)
+				{
+					std::cout << "Attack failed!\n";
+
+					numShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+				}
+				else {
+					std::cout << "Attack successful!\n";
+					enemyNumShips -= attackShips;
+
+				}
+
+			}
+			else if (choice == 2)
+			{
+
+				std::cout << "Enter number of ships to use in defense: ";
+				int defenseShips;
+				std::cin >> defenseShips;
+
+				if (defenseShips > numShips)
+				{
+					std::cout << "You don't have that many ships!\n";
+
+				}
+
+
+				int enemyAttackResult = rand() % 2;
+				if (enemyAttackResult == 0)
+				{
+					std::cout << "Enemy attack failed!\n";
+					enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+				}
+				else {
+					std::cout << "Enemy attack successful!\n";
+					numShips -= enemyNumShips;
+				}
+
+
+
+
+				int enemyChoice = rand() % 2;
+				if (enemyChoice == 1)
+				{
+					std::cout << enemyName << " is attacking your planet!\n";
+
+					int enemyAttackShips = rand() % (enemyNumShips);
+
+					int enemyAttackResult = rand() % 2;
+					if (enemyAttackResult == 0)
+					{
+						std::cout << "Enemy attack failed!\n";
+						enemyNumShips -= MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+
+					}
+					else {
+						std::cout << "Enemy attack successful!\n";
+						numShips -= enemyNumShips;
+					}
+				}
+			}
+			else if (choice == 3)
+			{
+				numShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+				enemyNumShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			}
+			else {
+				enemyNumShips += MIN_SHIPS + rand() % (MAX_SHIPS - MIN_SHIPS + 1);
+			}
+
+
+			if (numShips <= 0 && enemyNumShips <= 0)
+			{
+				defeated = true;
+				std::cout << "everything has been detroyed";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+			else if (numShips <= 0)
+			{
+				defeated = true;
+				std::cout << "**************************************\n->>>" << playerName << " has been defeated!<<<-\n**************************************\n";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+			else if (enemyNumShips <= 0)
+			{
+				enemyDefeated = true;
+				std::cout << "**************************************\nCONGRATULATIONS->>>" << enemyName << " has been defeated!<<<-CONGRATULATIONS\n**************************************\n";
+				std::this_thread::sleep_for(std::chrono::seconds(4));
+			}
+
+		}
+	} while (defeated == true);
+}
 
 void writing(string text)
 {
 
-    for (char c : text)
-    {
-        cout << c;
-        Sleep(0);
-    }
+	for (char c : text)
+	{
+		cout << c;
+		Sleep(0);
+	}
 }
 
 void pak() //czekanie na reakcje użytkownika
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
-    cout << "Naciśnij Enter aby kontynuować...";
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //funkcja konieczna do kolorowania tekstu w konsoli (UCHWYT nazwa = funkcja zwracajaca uchwyt do wejscia(argument(obraz konsoli)))
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN); //kolrowanie (obiekt, kolor, wysoka intensywnosc)
+	cout << "Naciśnij Enter aby kontynuować...";
 	_getch();
 	cout << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); //kolorowanie(przywracanie na biały)
 }
 
 int main()
 {
-    setlocale(LC_ALL, "PL-pl");
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    cout << "----------RETURN-Powrót do domu----------" << endl << endl;
-    system("cls");
-    writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
-    writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
-    writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
-    writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
-    writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
-    writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
-    cout << endl;
-    pak();
-    writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
-    writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
-    writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
-    cout << endl;
-    pak();
-    system("cls");//czyszczenie obszaru konsoli
-    cout << endl;
-    cout << "Wybierz historię którą chcesz poznać: " << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-    cout << "  +------+   +------+   +------+" << endl;
-    cout << "  | 1    |   | 2    |   | 3    |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  |    o |   |    o |   |    o |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  |      |   |      |   |      |" << endl;
-    cout << "  +------+   +------+   +------+" << endl;
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-    int doors;
-    cout << "Wybierz drzwi do których chcesz wejść i zatwierdź wybór enterem: ";
-    cin >> doors;
-    system("cls");
-    switch (doors)
-    {
-    case 1:
-    {
+
+	setlocale(LC_ALL, "PL-pl");
+	srand(time(NULL));
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
+	system("cls");
+	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
+	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
+	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
+	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
+	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
+	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
+	cout << endl;
+	pak();
+	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
+	writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
+	writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
+	cout << endl;
+	pak();
+	system("cls");//czyszczenie obszaru konsoli
+	cout << endl;
+	cout << "Wybierz historię którą chcesz poznać: " << endl;
+	SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+	cout << "  +------+   +------+   +------+" << endl;
+	cout << "  | 1    |   | 2    |   | 3    |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  |    o |   |    o |   |    o |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  |      |   |      |   |      |" << endl;
+	cout << "  +------+   +------+   +------+" << endl;
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	int doors;
+	cout << "Wybierz drzwi do których chcesz wejść i zatwierdź wybór enterem: ";
+	cin >> doors;
+	system("cls");
+	switch (doors)
+	{
+	case 1:
+	{
 		writing("Mapa którą otrzymałeś pokazuje abyś kierował się na północ w strone Mostu Zagłady,\nniestety to jedyna drogą i musisz pokonać pilnującego mostu ogra o imieniu Norbert, odwieczny rywal Greków,\nktóry za swoje zbrodnie został zesłany na nasz świat.\nAby odkupić swoje winy strzeże mostu i ci którzy z nim przegrają wracają razem z nim do krainy Orków");
 		cout << endl;
 		pak();
@@ -237,85 +692,170 @@ int main()
 		writing("Twoim zadaniem będzie pokonać Norberta zdobywając odpowiednią liczbę punktów.\nLecz uważaj strażnik jest niezwykle sprytny i za niektóre punkty trzeba będzie się poświęcić!");
 		cout << endl;
 		pak();
-		do 
-		{
-			if (snakelvl == 0)
-			{
-				setup();
-				while (!gameover)
-				{
-					draw(70);
-					input();
-					logic(70);
-					Sleep(70);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
-				Sleep(5000);
-				cout << endl;
-				pak();
-			}
-		
-			else if (snakelvl == 1)
-			{
-				setup();
-				while (!gameover)
-				{
-					draw(120);
-					input();
-					logic(120);
-					Sleep(40);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
-				Sleep(5000);
-				cout << endl;
-				pak();
-			}
-			else if (snakelvl == 2)
-			{
-				setup();
-				while (!gameover)
-				{
-					draw(200);
-					input();
-					logic(200);
-					Sleep(30);
-				}
-				system("cls");
-				cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
-				Sleep(5000);
-				cout << endl;
-				pak();
-			}
-			
-		} while (continuesnake != 3);
 
-		writing("Możesz se przejść przez most");
-		
-				
+		setup();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(10);
+		}
 		system("cls");
-		cout << "Historia 1: " << endl;
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 1 POZIOM!";
 		cout << endl;
 		pak();
-		break;
-    }
-    case 2:
-    {
-        cout << "Historia 2: ";
-        break;
-    }
-    case 3:
-    {
-        cout << "Historia 3: ";
-        break;
-    }
-    default:
-    {
-        cout << "Nie wybrałeś drzwi gra się kończy..";
-        break;
-    }
 
-    }
+
+
+		setup();
+		while (!gameover)
+		{
+			draw(10);
+			input();
+			logic(10);
+			Sleep(40);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ PRZEJŚĆ 2 POZIOM!";
+		cout << endl;
+		pak();
+
+
+		setup();
+		while (!gameover)
+		{
+			draw(20);
+			input();
+			logic(20);
+			Sleep(30);
+		}
+		system("cls");
+		cout << "BRAWO UDAŁO CI SIĘ POKONAĆ STRAŻNIKA";
+		cout << endl;
+		pak();
+
+
+		writing("Możesz se przejść przez most");
+		cout << endl;
+		pak();
+		system("cls");
+		writing("Historia do ttt");
+		cout << endl;
+		pak();
+		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Brawo udało ci sie mnie pokonać po raz pierwszy, ciekawe czy umiesz to powtórzyć?");
+		cout << endl;
+		pak();
+		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Szczęście nowicjusza, każdemu może się udać");
+		cout << endl;
+		pak();
+		TTT();
+		Sleep(2000);
+		system("cls");
+		writing("Niestety, jesteś pierwszą osobą przez którą poległem"); //tu trzeba ustawic zeby gierka sie resetowala po wyniku bo nie da sie grac kilka razy
+
+		writing("Historia po TTT");
+		cout << endl;
+		pak();
+
+
+		do
+		{
+			writing("Król: WYSŁAĆ PIERWSZĄ FALĘ STRAŻNIKÓW!");
+			Sleep(2000);
+			system("cls");
+			guards_game(3, 9);
+			if (continueguards == 1)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 1);
+
+		do
+		{
+			writing("Król: WYSŁAĆ DRUGĄ FALĘ STRAŻNIKÓW!");
+			Sleep(1000);
+			cout << endl;
+			writing("Tej już nie podoła...");
+			Sleep(2000);
+			system("cls");
+			guards_game(6, 8);
+			if (continueguards == 2)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 2);
+
+		do
+		{
+			writing("Król: WYSTAWIĆ JUŻ OSTATNIA PIECHOTĘ!");
+			Sleep(1000);
+			cout << endl;
+			writing("Tylko w nich nadzieja...");
+			Sleep(2000);
+			system("cls");
+			guards_game(9, 7);
+			if (continueguards == 3)
+			{
+				cout << "Kyral poległ, niech spróbuje jeszcze raz..." << endl;
+				pak();
+			}
+			system("cls");
+
+		} while (continueguards == 3);
+
+
+
+
+		break;
+
+	}
+	case 2:
+	{
+		cout << " Za drzwiami znajdował się eliksir babel bohaterowie wypili go i poczuli błogosławieństwo bogów zatem ruszyli dalej,\nna pustyni ujrzeli chate pewnego czarnoksiężnika Jonasza Korana Mekke,\njednak okazało się że Kyral i jego drużyna włada innym językiem,\nnasi bohaterowie muszą rozwiązać zadanie nim Mekka wyjawi im jakąś wskazówkę\n";
+		Sleep(20000);
+		rockpaper();
+		system("cls");
+		cout << " \"Niech każdy rządzi swoim życiem, a reszta niech sobie leci\"\n";
+		Sleep(10000);
+		system("cls");
+		cout << "Więc tak też postanowili zrobić, znaleźli potrzebne materiały i narzędzia i zaczęli budować maszynę latającą,\nco prawda Kyral miał wątpliwości czy na pewno o to chodziło,\nale demokratycznie zadecydowali że to dobry pomysł zatem zbudowali i polecieli\n" << endl;
+		Sleep(20000);
+		system("cls");
+		cout << "Kyral i jego kompania lecieli swoją maszyną latającą w stronę tajemniczej krainy,\ngdzie według legend miał znajdować się Kamień Natury.\nPodczas lotu zauważyli dziwną chmurę, która szybko się zbliżała.\nBłyskawicznie zostali wciągnięci w głąb mrocznej struktury,\ngdzie spotkali się z tajemniczymi istotami porozumiewającymi się bez słowa.\nNieznane istoty szybko zainteresowały się gośćmi,\na Kyral obserwując zachowania istot rzucił im wyzwanie w zamian za pomoc.\nJeden z generałów zdawał się przystać na propozycje, więc siedli do pojedynku";
+		Sleep(50000);
+		system("cls");
+		starwars();
+		system("cls");
+		cout << "Stary generał w niezadobrym humorze pokazał im portal,\nktórym jak przedstawiono naszym bohaterom można się dostać w każdy zakątek krainy\n";
+		cout << "Okazało się ,że nasza drużyna wpadła prosto w zasadzke Viltresa\nNie pozostaje im nic innego jak walczyć o wszystko albo zostać z niczym umierając śmiercią wojownika lub będąc skazanym na wieczną hańbę\n" << endl << "By wygrać z Viltresem muisz pokonać go w jego ulubionej grze";
+		Sleep(50000);
+		system("cls");
+		break;
+	}
+	case 3:
+	{
+		cout << "Historia 3: ";
+		break;
+	}
+	default:
+	{
+		cout << "Nie wybrałeś drzwi gra się kończy..";
+		break;
+	}
+
+	}
 
 }
