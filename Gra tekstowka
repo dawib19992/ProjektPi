@@ -653,7 +653,7 @@ int main()
 			writing("Viltres: WYSŁAĆ WSZYSTKICH WOJOWNIKÓW!");
 			Sleep(2000);
 			system("cls");
-			continueguards = guards_game(3, 9);
+			continueguards = guards_game(11, 8);
 			if (continueguards == 0)
 			{
 				cout << "Kyral poległ i jego kompania polegi, niech spróbują jeszcze raz..." << endl;
