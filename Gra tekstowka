@@ -459,7 +459,7 @@ void writing(string text)
 	for (char c : text)
 	{
 		cout << c;
-		Sleep(75);
+		Sleep(65);
 	}
 }
 void pak() //czekanie na reakcje użytkownika
@@ -475,14 +475,14 @@ int main()
 {
 	setlocale(LC_ALL, "PL-pl");
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
+	cout << "<----------RETURN-Powrót do domu----------<                                        *[Ustaw pełny ekran]*           " << endl << endl;
 	Sleep(1000);
-	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.\n");
-	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan."\n);
-	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy."\n);
-	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,"\n);
-	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury."\n);
-	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt."\n);
+	writing("W 1321 roku kraj Iolan został pogrążony w mroku.\nZły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda\npróbuje przejąć władzę nad państwem Sheldon.\n");
+	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.\n");
+	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.\n");
+	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,\n");
+	writing("aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.\n");
+	writing("Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.\n");
 	cout << endl;
 	pak();
 	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem.\nMężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię.\nW wyniku eksperymentów przeprowadzonych na nim w dzieciństwie\nprzez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce,\nz których czasem korzysta w walce");
@@ -653,7 +653,7 @@ int main()
 			writing("Viltres: WYSŁAĆ PIERWSZĄ FALĘ WOJOWNIKÓW!");
 			Sleep(2000);
 			system("cls");
-			continueguards= guards_game(3, 9);
+			continueguards = guards_game(3, 9);
 			if (continueguards == 0)
 			{
 				cout << "Kyral poległ i jego kompania polegi, niech spróbują jeszcze raz..." << endl;
@@ -706,10 +706,10 @@ int main()
 		break;
 	}
 	default:
-		{
+	{
 		cout << "Nie wybrałeś drzwi gra się kończy..";
 		break;
-		}
+	}
 	}
 	}
 }
