@@ -477,17 +477,17 @@ int main()
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	cout << "----------RETURN-Powrót do domu----------" << endl << endl;
 	Sleep(1000);
-	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.");
-	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan.");
-	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy.");
-	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,");
-	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury.");
-	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt.");
+	writing("W 1321 roku kraj Iolan został pogrążony w mroku. Zły czarodziej Viltres wraz z swoją grupą złych czarodziejów pod nazwą Gwiazda próbuje przejąć władzę nad państwem Sheldon.\n");
+	writing("W 1322 roku dochodzi do bitwy w pałacu króla gdzie w wyniku której ginie Nicolas ojciec Elrata, przywódca kraju Iolan."\n);
+	writing("Kompania staje do walki z Gwiazdą aby powstrzymać ich przed objęciem władzy."\n);
+	writing("Dochodzi do kolejnej bitwy podczas której kompania zostaje uwięziona w świecie sprzed 100 lat,"\n);
+	writing(" aby powrócić do rzeczywistości muszą oni odnaleźć oni tajemniczy artefakt pozwalający na podróż w czasie - Kamień Natury."\n);
+	writing(" Docierają do ukrytego w podziemiach pańśtwa - miasta Kazordon gdzie wchowdzą do starożytnej Świątyni Harmonii, żeby odnaleźć starożytny artefakt."\n);
 	cout << endl;
 	pak();
-	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem. Mężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię. W wyniku eksperymentów przeprowadzonych na nim w dzieciństwie przez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce, z których czasem korzysta w walce");
-	writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna , prawa i oddana kompanii, nienawidzi czarnoksiężników.");
-	writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii ponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
+	writing("Kyral łowca potworów i lider grupy walczącej z złym czarnoksiężnikiem Viltresem.\nMężczyzna lat 32, wysoki blondyn, mistrz walki mieczem o mocnej budowię.\nW wyniku eksperymentów przeprowadzonych na nim w dzieciństwie\nprzez grupę czarnoksiężników na czele której stał Viltres otrzymał on podstawowe magicze moce,\nz których czasem korzysta w walce");
+	writing("Istera- lat 26 czarodziejka magii powietrza, szlachetna.\nprawa i oddana kompanii, nienawidzi czarnoksiężników.");
+	writing("Elrat - 19 elf łucznik, honorowy, mądry, dołączył do kompanii\nponieważ grupa Viltresa zabiła króla jego kraju a zarazem ojca");
 	cout << endl;
 	pak();
 	system("cls");//czyszczenie obszaru konsoli
