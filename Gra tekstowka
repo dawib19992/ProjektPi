@@ -650,7 +650,7 @@ int main()
 		pak();
 		do
 		{
-			writing("Viltres: WYSŁAĆ PIERWSZĄ FALĘ WOJOWNIKÓW!");
+			writing("Viltres: WYSŁAĆ WSZYSTKICH WOJOWNIKÓW!");
 			Sleep(2000);
 			system("cls");
 			continueguards = guards_game(3, 9);
@@ -662,40 +662,6 @@ int main()
 			system("cls");
 
 		} while (continueguards == 0);
-		do
-		{
-			writing("Vilters: WYSŁAĆ DRUGĄ FALĘ WOJOWNIKÓW!");
-			Sleep(1000);
-			cout << endl;
-			writing("Tej już nie podoła...");
-			Sleep(2000);
-			system("cls");
-			guards_game(6, 8);
-			if (continueguards == 1)
-			{
-				cout << "Kyral poległ i jego kompania polegi, niech spróbują jeszcze raz..." << endl;
-				pak();
-			}
-			system("cls");
-
-		} while (continueguards == 1);
-		do
-		{
-			writing("Viltres: WYSTAWIĆ JUŻ OSTATNIA PIECHOTĘ!");
-			Sleep(1000);
-			cout << endl;
-			writing("Tylko w nich nadzieja...");
-			Sleep(2000);
-			system("cls");
-			guards_game(9, 7);
-			if (continueguards == 2)
-			{
-				cout << "Kyral poległ i jego kompania polegi, niech spróbują jeszcze raz..." << endl;
-				pak();
-			}
-			system("cls");
-
-		} while (continueguards == 2);
 
 		pak();
 		system("cls");
