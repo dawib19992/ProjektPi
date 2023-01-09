@@ -1,0 +1,3 @@
+https://levelskip.com/classic/Make-a-Text-Based-Game -> przydatna strona na podstawie rozpoczecia pracy
+https://www.youtube.com/watch?v=gWq0tJLsjRs&t=849s -> gra snake
+https://youtu.be/np00ZrQXY2w -> kółko i krzyżyk
