@@ -1,0 +1,29 @@
+PROGRAMOWANIE KOMPUTERÓW
+Termin 0B
+Blok 2 [Klasy i enkapsulacja – operatory i konwersje]:
+1) Stosując się do zasady enkapsulacji zdefiniuj klasę Samochód tak aby zawiera informacje o:
+- numerze rejestracyjnym (każdy numer ma format XXX-YYYYY, gdzie X to litery, a Y to cyfry),
+- stanie licznika,
+- stanie dopuszczenia do jazdy (dopuszczony/niedopuszczony),
+- Właścicielu (inny typ złożony w programie dobierz tak typ pola, aby dane właściciela nie były powielane, w każdym
+pojeździe, który posiada).
+Samodzielnie dobierz typy danych. Właściciel powinien być klasą zawierającą tylko nazwisko ustawiane
+przy tworzeniu instancji.
+2) Wyposaż klasę Samochód, w pole statyczne pamietające ostatni przypisany numer rejestracyjny (0 na podatku). Każde
+utworzenie nowej instancji powinno automatycznie przypisywać cześć YYYYY numeru rejestracyjnego jako liczbę o 1
+większą od aktualnie zapamiętanej w polu statycznym. Modyfikacja części XXX nie powinna modyfikować YYYYY.
+3) Dla klasy Samochód zdefiniuj interfejs zawierający:
+- setery i getery wszystkich pól, przy czym seter rejestracji powinien pozwalać ustawiać tylko część XXX numeru.
+- konstruktor argumentowy ustawiający wszystkie pola na zadane wartości (tylko XXX dla numeru rejestracyjnego).
+Samodzielnie zaproponuj ograniczenia dla wartości pól, tak aby nie dało się wprowadzić obiektu w nieprawidłowy stan.
+Także samodzielnie zaproponuj sposób kontroli ograniczeń i tam, gdzie to możliwe stosuj zasadę DRY.
+4) Dodaj klasę Samochód Elektryczny, która rozbuduje klasę Samochód o stan baterii (0-100%). W nowej klasie zdefiniuj
+interfejs. Pamiętaj o konstruktorze i zaproponowaniu ograniczeń dla nowego pola. Dodaj do obu klas funkcjonalność
+polimorficzną obliczającą zasięg. Zwykły Samochód powinien mieć stały zasięg 800km, a Samochód Elektryczny zasięg
+wyrażony jako: 2.5* stan baterii.
+5) Napisz nieformalny mechanizm konwersji Samochód ➔ double, obliczający wartość samochodu ze wzoru:
+(WAR_POCZ – 0.1 * przebieg)*WSP_SPARW, gdzie WSP_SPARW = 1.0 dla dopuszczonych do ruchu i 0.2 dla
+niedopuszczonych. WAR_POCZ należy przekazać do mechanizmu konwersji. Wartość Samochodu nie może być niższa
+niż 400 PLN, bez względu na inne czynniki.
+6) Zdefiniuj operator == dla Samochodu. Przyjmij, że Samochody są identyczne, jeśli mają tą samą cześć XXX w numerze
+rejestracji i ten sam przebieg z dokładnością do 10 km).
