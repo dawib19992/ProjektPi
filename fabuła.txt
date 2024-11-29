@@ -1,1 +1,14 @@
-
+Dla klasy Zbior z plików zbior.h i zbior.cpp:
+1) Napisz konstruktor przenoszący i przenoszący operator =, tak aby działały zgodnie z koncepcją kopii głębokiej.
+2) Zdefiniuj klasę, która będzie agregatem dowolnej liczby zbiorów. Zdefiniuj dla niej metodę dodającą instancję do agregatu
+i usuwającą instancje z agregatu. Rozwiązując to polecenie nie posługuj się ręcznym zarządzaniem pamięcią dynamiczną
+(new/delete) i nie używaj inteligentnych wskaźników.
+3) Napisz 2 testy jednostkowe sprawdzające czy:
+- dawca prawidłowo traci zasób przy użyciu przenoszącego operatora =,
+- biorca ma prawidłowo przypisany zasób po użyciu konstruktora przenoszącego.
+4) Zdefiniuj funktor, pełniący rolę predykatu orzekającego o tym czy przekazany mu Zbiór ma liczbę elementów w określonym
+zakresie. Dolną i górną liczebność graniczną należy zadać przy tworzeniu instancji funktora.
+5) Użyj funktora z polecenia 4 do napisania fragmentu kodu, który zliczy, ile w agregacie z polecenia 2 występuje Zbiorów
+o liczebnościach mieszczących się w przedziale zadanym przez użytkownika.
+UWAGA, jeśli okaże się, że do wykonania tego polecenia niezbędne jest zdefiniowanie dodatkowych funkcjonalności nie
+wymienionych w poleceniu to należy to zrobić. Należy koniecznie uzasadnić w komentarzu powód
