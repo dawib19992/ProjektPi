@@ -1,1 +1,200 @@
+//zbior.h
+
+#pragma once
+#include <vector>
+class Zbior
+{
+	size_t m_liczbaElementow = 0;
+	double* m_elementy = nullptr;
+	double m_dolnaGranica = 0;
+	double m_gornaGranica = 0;
+	void alokuj(int);
+	void zwolnij();
+public:
+	Zbior(size_t liczElem, double dGran, double gGran);
+	Zbior(Zbior&& other) noexcept;
+	Zbior& operator=(Zbior&& other) noexcept;
+	~Zbior() {} 
+	size_t getRozmiar() const;
+	const double* getElementy();
+};
+
+class Agregat {
+	std::vector<Zbior> zbiory;
+public:
+	void dodaj(Zbior&& zbior) {
+		zbiory.push_back(std::move(zbior));
+	}
+
+	void usun(size_t i) {
+		if (i < zbiory.size()) {
+			zbiory.erase(zbiory.begin() + i);
+		}
+	}
+
+	size_t liczbaZbiorow() const {
+		return zbiory.size();
+	}
+	const Zbior& pobierzZbior(size_t index) const {
+		return zbiory.at(index);
+	}
+	Zbior& pobierzZbior(size_t index) {
+		return zbiory.at(index);
+	}
+	const std::vector<Zbior>& getZbiory() const {
+		return zbiory;
+	}
+
+};
+
+class Predykat {
+	size_t dolnaGranica;
+	size_t gornaGranica;
+
+public:
+	Predykat(size_t dol, size_t gora)
+	{
+		dolnaGranica = dol;
+		gornaGranica = gora;
+	}
+
+	bool operator()(const Zbior& zbior) const {
+		size_t rozmiar = zbior.getRozmiar();
+		return rozmiar >= dolnaGranica && rozmiar <= gornaGranica;
+	}
+};
+
+
+
+
+
+//zbior.cpp
+
+#include "zbior.h"
+#include <new>
+#include <random>
+#include <cassert>
+
+void Zbior::alokuj(int n)
+{
+	assert(n > 0);
+	m_elementy = new(std::nothrow) double[n]{};
+	m_liczbaElementow = n;
+
+}
+
+void Zbior::zwolnij()
+{
+	delete[] m_elementy;
+}
+
+Zbior::Zbior(size_t liczElem, double dGran, double gGran)
+{
+	alokuj(liczElem);
+	std::uniform_real_distribution<double> zakres(dGran, gGran);
+	std::random_device generator;
+	for (int elem = 0; elem < liczElem; elem++)
+		m_elementy[elem] = zakres(generator);
+}
+
+Zbior::Zbior(Zbior&& przenies) noexcept
+{
+	m_elementy = przenies.m_elementy;
+	m_liczbaElementow = przenies.m_liczbaElementow;
+	m_dolnaGranica = przenies.m_dolnaGranica;
+	m_gornaGranica = przenies.m_gornaGranica;
+	przenies.m_elementy = nullptr;
+	przenies.m_liczbaElementow = 0;
+}
+
+Zbior& Zbior::operator=(Zbior&& przenies) noexcept
+{
+	if (this != &przenies) {
+		zwolnij();
+		m_elementy = przenies.m_elementy;
+		m_liczbaElementow = przenies.m_liczbaElementow;
+		m_dolnaGranica = przenies.m_dolnaGranica;
+		m_gornaGranica = przenies.m_gornaGranica;
+
+		przenies.m_elementy = nullptr;
+		przenies.m_liczbaElementow = 0;
+	}
+	return *this;
+}
+
+size_t Zbior::getRozmiar() const {
+	return m_liczbaElementow;
+}
+
+const double* Zbior::getElementy() {
+	return m_elementy;
+}
+
+
+
+
+//main.cpp
+
+#include <iostream>
+#include <algorithm>
+#include "zbior.h"
+using namespace std;
+
+void test1()
+{
+	Zbior z1(5, 1.0, 10.0);
+	Zbior z2 = std::move(z1);
+
+	if (z1.getElementy() == nullptr && z1.getRozmiar() == 0)
+	{
+		cout << "Test1: OK" << endl;
+	}
+	else
+		cout << "Test1: NIE OK" << endl;
+}
+
+void test2()
+{
+	Zbior z1(5, 1.0, 10.0);
+	Zbior z2(std::move(z1));
+
+	if (z1.getElementy() == nullptr && z1.getRozmiar() == 5)
+	{
+		cout << "Test2: OK" << endl;
+	}
+	else
+		cout << "Test2: NIE OK" << endl;
+}
+
+int main()
+{
+	test1();
+	test2();
+
+	Agregat agregat;
+	agregat.dodaj(Zbior(1, 12.0, 22.0));
+	agregat.dodaj(Zbior(3, -3.0, 8.0));
+	agregat.dodaj(Zbior(7, 4.0, 13.0));
+	agregat.dodaj(Zbior(12, -5.0, 5.0));
+
+	double dolnaGranica, gornaGranica;
+	cout << "Podaj dolna granice liczebnosci zbiorow: ";
+	cin >> dolnaGranica;
+	cout << "Podaj gorna granice liczebnosci zbiorow: ";
+	cin >> gornaGranica;
+
+	Predykat predykat(dolnaGranica, gornaGranica);
+	size_t liczbaPasujacych = std::count_if(
+		agregat.getZbiory().begin(),
+		agregat.getZbiory().end(),
+		predykat
+	);
+	std::cout << "Liczba zbiorow o liczebnosciach w zakresie ["
+		<< dolnaGranica << ", " << gornaGranica << "]: "
+		<< liczbaPasujacych << std::endl;
+
+}
+
+
+
 
